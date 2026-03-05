@@ -22,7 +22,7 @@ const PainPointsSection = () => (
         <div className="flex-shrink-0 flex items-center justify-center" style={{ width: "300px" }}>
           <div className="w-64 h-64 rounded-full overflow-hidden shadow-xl"
             style={{ border: "8px solid #22c55e" }}>
-            <img src={painImage} alt="Pain" className="w-full h-full object-cover" />
+            <img src={painImage} alt="Pain" className="w-full h-full object-cover" loading="lazy" />
           </div>
         </div>
 
@@ -103,4 +103,5 @@ const PainPointsSection = () => (
   </section>
 );
 
-export default PainPointsSection;
+const WorkshopSection = PainPointsSection;
+export default WorkshopSection;

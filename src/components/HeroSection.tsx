@@ -1,5 +1,7 @@
-import { Calendar, Clock, Video, Globe, ArrowRight, Star } from "lucide-react";
+import { useState } from "react";
+import { Calendar, Clock, Video, Globe, ArrowRight, Star, Play } from "lucide-react";
 import googleReviews from "@/assets/google.webp";
+import heroImage from "@/assets/Hero.webp";
 
 const CTAButton = ({ text = "Book Now – Get 81% OFF", sub = "100% money back guarantee" }: { text?: string; sub?: string }) => (
   <a
@@ -12,6 +14,7 @@ const CTAButton = ({ text = "Book Now – Get 81% OFF", sub = "100% money back g
 );
 
 const HeroSection = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
   const details = [
     { icon: Calendar, label: "Date", value: "21st, 22nd Feb" },
     { icon: Clock, label: "Time", value: "21st - 8:00 PM\n22nd - 10:00 AM" },
@@ -51,18 +54,34 @@ const HeroSection = () => {
           {/* Video / Image */}
           <div className="relative rounded-2xl overflow-hidden shadow-lg">
             <div className="relative" style={{ paddingTop: '56.25%' }}>
-              <iframe 
-src="https://player.vimeo.com/video/1109262583?h=9b74413547&autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0"
-                className="absolute top-0 left-0 w-full h-full"
-                frameBorder="0" 
-                allow="autoplay; fullscreen; picture-in-picture" 
-                allowFullScreen
-                title="Wellness Workshop Video"
-              ></iframe>
-            </div>
-            <div className="absolute bottom-4 left-4 bg-accent px-4 py-2 rounded-lg font-heading font-bold text-sm">
-              Struggling from<br />
-              <span className="text-lg">Spine, Neck & Knee pain?</span>
+              {/* Cover Image with Play Button or Video Player */}
+              <div className="absolute top-0 left-0 w-full h-full bg-black">
+                {isPlaying ? (
+                  <iframe 
+                    src="https://player.vimeo.com/video/1109262583?h=9b74413547&autoplay=1"
+                    className="absolute top-0 left-0 w-full h-full"
+                    frameBorder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allowFullScreen
+                    title="Wellness Workshop Video"
+                  ></iframe>
+                ) : (
+                  <>
+                    <img 
+                      src={heroImage} 
+                      alt="Wellness Workshop" 
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Play Button Overlay */}
+                    <button 
+                      onClick={() => setIsPlaying(true)}
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors cursor-pointer"
+                    >
+                      <Play className="text-primary ml-1" size={32} />
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 

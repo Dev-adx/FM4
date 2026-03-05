@@ -46,7 +46,7 @@ const StatCard = ({
   return (
     <div ref={ref} className="rounded-2xl overflow-hidden shadow-xl flex flex-col" style={{ backgroundColor: "#3d5a6e" }}>
       <div className="h-52 overflow-hidden">
-        <img src={img} alt={label} className="w-full h-full object-cover" />
+        <img src={img} alt={label} className="w-full h-full object-cover" loading="lazy" />
       </div>
       <div className="px-6 py-8 text-center text-white flex flex-col items-center">
         <p className="text-4xl md:text-5xl font-heading font-black">

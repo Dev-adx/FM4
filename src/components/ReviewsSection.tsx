@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Star } from "lucide-react";
 import googleLogo from "@/assets/google.webp";
 
@@ -44,6 +44,31 @@ const ReviewCard = ({ review }: { review: (typeof reviews)[0] }) => (
 
 const ReviewsSection = () => {
   const [active, setActive] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe && active < reviews.length - 1) {
+      setActive(active + 1);
+    }
+    if (isRightSwipe && active > 0) {
+      setActive(active - 1);
+    }
+  };
 
   return (
     <section className="bg-section-white py-14">
@@ -75,7 +100,12 @@ const ReviewsSection = () => {
 
         {/* Mobile: single card carousel */}
         <div className="md:hidden px-4">
-          <div className="overflow-hidden">
+          <div 
+            className="overflow-hidden"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <div
               className="flex transition-transform duration-300 ease-in-out"
               style={{ transform: `translateX(-${active * 100}%)` }}

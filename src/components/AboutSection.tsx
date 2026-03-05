@@ -58,6 +58,7 @@ const AboutSection = () => {
                     alt={`Celebrity ${i + 1}`}
                     className="w-full object-cover"
                     style={{ aspectRatio: "7/10" }}
+                    loading="lazy"
                   />
                 </div>
               ))}
@@ -108,7 +109,7 @@ const AboutSection = () => {
                 style={{ paddingTop: "177.78%" }}
               >
                 <iframe
-                  src="https://player.vimeo.com/video/1072068196?h=4c6578adfe&title=0&byline=0&portrait=0"
+                  src="https://player.vimeo.com/video/1072068196?h=4c6578adfe&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0"
                   className="absolute inset-0 w-full h-full"
                   style={{ border: "none" }}
                   allow="autoplay; fullscreen; picture-in-picture"
