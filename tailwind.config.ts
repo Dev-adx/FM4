@@ -76,10 +76,25 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-in": {
+          from: { opacity: "0", transform: "translateY(-10px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.5s ease-out",
+      },
+      backgroundImage: {
+        "gradient-primary": "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
+        "card-gradient": "linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%)",
+      },
+      boxShadow: {
+        "glow": "0 0 20px rgba(34, 197, 94, 0.3)",
+      },
+      textFillColor: {
+        "transparent": "transparent",
       },
     },
   },

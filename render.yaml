@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: fm4-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: FRONTEND_URL
+        sync: false
+      - key: GOOGLE_SHEET_URL
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false

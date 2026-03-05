@@ -1,13 +1,63 @@
 import { useState } from "react";
-import { Shield, Lock } from "lucide-react";
+import { Shield, Lock, Loader2 } from "lucide-react";
+
+
+const RAZORPAY_LINK = "https://rzp.io/rzp/pOMBaZk2";
 
 const CheckoutSection = () => {
   const [form, setForm] = useState({
     firstName: "", lastName: "", email: "", city: "", phone: "", bookingFor: "myself",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    // Clear error when user starts typing
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!form.firstName.trim()) newErrors.firstName = "First name is required";
+    if (!form.lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+    if (!form.city.trim()) newErrors.city = "City is required";
+    if (!form.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^\d{10}$/.test(form.phone.replace(/\D/g, ''))) {
+      newErrors.phone = "Please enter a valid 10-digit phone number";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+
+    const fullName = `${form.firstName} ${form.lastName}`.trim();
+    const phoneNumber = form.phone.replace(/\D/g, '');
+
+    const params = new URLSearchParams({
+      name: fullName,
+      email: form.email,
+      contact: `+91${phoneNumber}`,
+    });
+
+    window.open(`${RAZORPAY_LINK}?${params.toString()}`, '_blank');
+    setTimeout(() => setIsLoading(false), 1000);
   };
 
   return (
@@ -18,34 +68,66 @@ const CheckoutSection = () => {
         </h2>
 
         <div className="bg-card rounded-2xl p-6 md:p-8 shadow-lg border">
-          <div className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold mb-1">First name *</label>
-                <input name="firstName" value={form.firstName} onChange={handleChange} className="w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none" />
+                <input 
+                  name="firstName" 
+                  value={form.firstName} 
+                  onChange={handleChange} 
+                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.firstName ? 'border-red-500' : ''}`} 
+                />
+                {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-1">Last name *</label>
-                <input name="lastName" value={form.lastName} onChange={handleChange} className="w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none" />
+                <input 
+                  name="lastName" 
+                  value={form.lastName} 
+                  onChange={handleChange} 
+                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.lastName ? 'border-red-500' : ''}`} 
+                />
+                {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-semibold mb-1">Email *</label>
-              <input name="email" type="email" value={form.email} onChange={handleChange} className="w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none" />
+              <input 
+                name="email" 
+                type="email" 
+                value={form.email} 
+                onChange={handleChange} 
+                className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.email ? 'border-red-500' : ''}`} 
+              />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
 
             <div>
               <label className="block text-sm font-semibold mb-1">Town / City *</label>
-              <input name="city" value={form.city} onChange={handleChange} className="w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none" />
+              <input 
+                name="city" 
+                value={form.city} 
+                onChange={handleChange} 
+                className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.city ? 'border-red-500' : ''}`} 
+              />
+              {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
             </div>
 
             <div>
               <label className="block text-sm font-semibold mb-1">Phone *</label>
               <div className="flex gap-2">
                 <span className="flex items-center bg-muted rounded-lg px-3 text-sm font-semibold">+91</span>
-                <input name="phone" type="tel" value={form.phone} onChange={handleChange} className="w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none" />
+                <input 
+                  name="phone" 
+                  type="tel" 
+                  value={form.phone} 
+                  onChange={handleChange} 
+                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.phone ? 'border-red-500' : ''}`} 
+                />
               </div>
+              {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
             </div>
 
             <div>
@@ -65,19 +147,30 @@ const CheckoutSection = () => {
               <h4 className="font-heading font-bold mb-3">Order Summary</h4>
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm">Ticket for Pain Free with FM4 Workshop × 1</span>
-                <span className="font-bold">₹97.00</span>
+                <span className="font-bold">₹99.00</span>
               </div>
               <div className="border-t pt-2 flex justify-between items-center">
                 <span className="font-heading font-bold">Total</span>
                 <div className="text-right">
                   <span className="line-through text-muted-foreground text-sm mr-2">₹499.00</span>
-                  <span className="font-heading font-bold text-xl text-primary">₹97.00</span>
+                  <span className="font-heading font-bold text-xl text-primary">₹99.00</span>
                 </div>
               </div>
             </div>
 
-            <button className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta">
-              Place Your Order — ₹97.00
+            <button 
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="animate-spin" size={20} />
+                  Processing...
+                </>
+              ) : (
+                "Place Your Order — ₹99.00"
+              )}
             </button>
 
             <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm">
@@ -85,7 +178,7 @@ const CheckoutSection = () => {
               <span>100% Secure & Safe Payments</span>
               <Shield size={14} />
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>

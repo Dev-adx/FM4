@@ -93,7 +93,7 @@ const PainPointsSection = () => (
       >
         Book Your Seat For{" "}
         <span className="line-through opacity-70">₹499</span>{" "}
-        ₹97
+        ₹99
         <ArrowRight className="inline ml-2" size={24} />
         <span className="block text-sm font-body font-normal mt-1 opacity-80">
           100% money back guarantee
