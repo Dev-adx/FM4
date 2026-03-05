@@ -9,6 +9,7 @@ import AboutSection from "@/components/AboutSection";
 import ReviewsSection from "@/components/ReviewsSection";
 import CheckoutSection from "@/components/CheckoutSection";
 import FAQSection from "@/components/FAQSection";
+import FooterSection from "@/components/FooterSection";
 
 const Index = () => {
   return (
@@ -24,6 +25,7 @@ const Index = () => {
       <ReviewsSection />
       <CheckoutSection />
       <FAQSection />
+      <FooterSection />
 
       {/* Sticky mobile CTA */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden z-50 p-3 bg-card/95 backdrop-blur border-t">

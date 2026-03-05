@@ -1,5 +1,4 @@
 import { Calendar, Clock, Video, Globe, ArrowRight, Star } from "lucide-react";
-import therapistHero from "@/assets/therapist-hero.jpg";
 import googleReviews from "@/assets/google.webp";
 
 const CTAButton = ({ text = "Book Now – Get 81% OFF", sub = "100% money back guarantee" }: { text?: string; sub?: string }) => (
@@ -51,13 +50,15 @@ const HeroSection = () => {
         <div className="grid md:grid-cols-2 gap-8 items-start max-w-5xl mx-auto">
           {/* Video / Image */}
           <div className="relative rounded-2xl overflow-hidden shadow-lg">
-            <img src={therapistHero} alt="Wellness therapist" className="w-full h-auto object-cover" />
-            <div className="absolute inset-0 bg-foreground/20 flex items-center justify-center">
-              <div className="w-16 h-16 rounded-full bg-card/90 flex items-center justify-center">
-                <div className="w-0 h-0 border-t-8 border-b-8 border-l-12 border-t-transparent border-b-transparent border-l-primary ml-1" 
-                  style={{ borderLeftWidth: '14px' }}
-                />
-              </div>
+            <div className="relative" style={{ paddingTop: '56.25%' }}>
+              <iframe 
+src="https://player.vimeo.com/video/1109262583?h=9b74413547&autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0"
+                className="absolute top-0 left-0 w-full h-full"
+                frameBorder="0" 
+                allow="autoplay; fullscreen; picture-in-picture" 
+                allowFullScreen
+                title="Wellness Workshop Video"
+              ></iframe>
             </div>
             <div className="absolute bottom-4 left-4 bg-accent px-4 py-2 rounded-lg font-heading font-bold text-sm">
               Struggling from<br />

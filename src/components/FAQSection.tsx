@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 
 const faqs = [
   { q: "Can you guarantee complete pain relief for severe conditions?", a: "Our techniques have been shown to significantly reduce chronic pain and improve mobility in various areas of the body. We aim to address a broad range of discomforts, offering relief to those dealing with long-standing pain or limited movement." },
@@ -14,32 +14,40 @@ const FAQSection = () => {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="bg-section-white py-14">
-      <div className="container max-w-3xl">
-        <h2 className="text-2xl md:text-4xl font-heading font-bold text-center mb-4">
-          Frequently Asked Questions
-        </h2>
-        <p className="text-center text-muted-foreground mb-10">
-          Find answers to common questions and clarify any doubts.
-        </p>
+    <section className="py-14" style={{ backgroundColor: "#3d5a6e" }}>
+      <div className="container max-w-5xl">
+        <div className="grid md:grid-cols-[300px_1fr] gap-12 items-start">
+          {/* Left: heading */}
+          <div>
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-white mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-white/70 font-body text-sm leading-relaxed">
+              Find answers to common questions and clarify any doubts to help you get the most out of our services.
+            </p>
+          </div>
 
-        <div className="space-y-3">
-          {faqs.map((f, i) => (
-            <div key={i} className="bg-card rounded-xl border overflow-hidden">
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between p-5 text-left font-heading font-semibold text-base"
-              >
-                {f.q}
-                {open === i ? <ChevronUp size={20} className="flex-shrink-0 text-primary" /> : <ChevronDown size={20} className="flex-shrink-0 text-muted-foreground" />}
-              </button>
-              {open === i && (
-                <div className="px-5 pb-5 text-muted-foreground">
-                  {f.a}
-                </div>
-              )}
-            </div>
-          ))}
+          {/* Right: accordion */}
+          <div className="space-y-3">
+            {faqs.map((f, i) => (
+              <div key={i} className="bg-white rounded-xl overflow-hidden">
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  className="w-full flex items-center justify-between px-5 py-4 text-left font-heading font-semibold text-sm md:text-base text-foreground"
+                >
+                  {f.q}
+                  {open === i
+                    ? <Minus size={20} className="flex-shrink-0 text-foreground" />
+                    : <Plus size={20} className="flex-shrink-0 text-foreground" />}
+                </button>
+                {open === i && (
+                  <div className="px-5 pb-4 text-muted-foreground text-sm">
+                    {f.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
