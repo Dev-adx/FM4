@@ -18,9 +18,9 @@ const ThankYou = () => {
     localStorage.removeItem("lastRegistration");
   }, []);
 
-  const day1 = config?.day1_datetime || "2026-02-21T20:00:00";
-  const day2 = config?.day2_datetime || "2026-02-22T10:00:00";
-  const whatsappLink = config?.whatsapp_link || "https://chat.whatsapp.com/EYhPWBybzoO2xP35GbKKJ0";
+  const day1 = config.day1_datetime;
+  const day2 = config.day2_datetime;
+  const whatsappLink = config.whatsapp_link;
 
   return (
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">

@@ -21,6 +21,7 @@ const BigQuestionSection = () => (
 
       <a
         href="#checkout"
+        onClick={() => (window as any).fbq?.('track', 'AddToCart')}
         className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta animate-pulse-slow"
       >
         Book Your Seat For{" "}

@@ -2,10 +2,13 @@ import { useState } from "react";
 import { Calendar, Clock, Video, Globe, ArrowRight, Star, Play } from "lucide-react";
 import googleReviews from "@/assets/google.webp";
 import heroImage from "@/assets/Hero.webp";
+import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
+import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
 const CTAButton = ({ text = "Book Now – Get 81% OFF", sub = "100% money back guarantee" }: { text?: string; sub?: string }) => (
   <a
     href="#checkout"
+    onClick={() => (window as any).fbq?.('track', 'AddToCart')}
     className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta animate-pulse-slow"
   >
     {text} <ArrowRight className="inline ml-2" size={24} />
@@ -15,9 +18,11 @@ const CTAButton = ({ text = "Book Now – Get 81% OFF", sub = "100% money back g
 
 const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const { config } = useWorkshopConfig();
+
   const details = [
-    { icon: Calendar, label: "Date", value: "21st, 22nd Feb" },
-    { icon: Clock, label: "Time", value: "21st - 8:00 PM\n22nd - 10:00 AM" },
+    { icon: Calendar, label: "Date", value: `${formatDateWithSuffix(config.day1_datetime)} & ${formatDateWithSuffix(config.day2_datetime)}` },
+    { icon: Clock, label: "Time", value: `Day 1: ${formatTime(config.day1_datetime)}\nDay 2: ${formatTime(config.day2_datetime)}` },
     { icon: Video, label: "Live Workshop", value: "2 Days" },
     { icon: Globe, label: "Language", value: "Hindi & English" },
   ];

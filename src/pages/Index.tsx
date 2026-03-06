@@ -40,7 +40,7 @@ const Index = () => {
 
       {/* Sticky mobile CTA */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden z-50 p-3 bg-card/95 backdrop-blur border-t">
-        <a href="#checkout" className="block bg-cta text-cta-foreground text-center font-heading font-bold py-3 rounded-xl shadow-cta">
+        <a href="#checkout" onClick={() => (window as any).fbq?.('track', 'AddToCart')} className="block bg-cta text-cta-foreground text-center font-heading font-bold py-3 rounded-xl shadow-cta">
           Book Now – Get 81% OFF →
         </a>
       </div>

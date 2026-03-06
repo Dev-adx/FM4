@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Shield, Lock, Loader2 } from "lucide-react";
-
-
-const RAZORPAY_LINK = "https://rzp.io/rzp/pOMBaZk2";
+import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 
 const CheckoutSection = () => {
+  const { config } = useWorkshopConfig();
   const [form, setForm] = useState({
     firstName: "", lastName: "", email: "", city: "", phone: "", bookingFor: "myself",
   });
@@ -45,6 +44,10 @@ const CheckoutSection = () => {
 
     if (!validateForm()) return;
 
+    if ((window as any).fbq) {
+      (window as any).fbq('track', 'InitiateCheckout');
+    }
+
     setIsLoading(true);
 
     const fullName = `${form.firstName} ${form.lastName}`.trim();
@@ -56,7 +59,7 @@ const CheckoutSection = () => {
       contact: `+91${phoneNumber}`,
     });
 
-    window.open(`${RAZORPAY_LINK}?${params.toString()}`, '_blank');
+    window.open(`${config.payment_link}?${params.toString()}`, '_blank');
     setTimeout(() => setIsLoading(false), 1000);
   };
 
