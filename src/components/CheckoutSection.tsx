@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Shield, Lock, Loader2 } from "lucide-react";
-import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
+
+const BACKEND_URL = "https://fm4.onrender.com";
 
 const CheckoutSection = () => {
-  const { config } = useWorkshopConfig();
   const [form, setForm] = useState({
-    firstName: "", lastName: "", email: "", city: "", phone: "", bookingFor: "myself",
+    fullName: "", email: "", city: "", phone: "", bookingFor: "myself",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -21,8 +21,7 @@ const CheckoutSection = () => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
-    if (!form.firstName.trim()) newErrors.firstName = "First name is required";
-    if (!form.lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!form.fullName.trim()) newErrors.fullName = "Full name is required";
     if (!form.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
@@ -39,7 +38,7 @@ const CheckoutSection = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -50,17 +49,50 @@ const CheckoutSection = () => {
 
     setIsLoading(true);
 
-    const fullName = `${form.firstName} ${form.lastName}`.trim();
-    const phoneNumber = form.phone.replace(/\D/g, '');
+    try {
+      const phoneNumber = form.phone.replace(/\D/g, '');
 
-    const params = new URLSearchParams({
-      name: fullName,
-      email: form.email,
-      contact: `+91${phoneNumber}`,
-    });
+      const response = await fetch(`${BACKEND_URL}/api/pre-register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.fullName.trim(),
+          email: form.email,
+          phone: phoneNumber,
+          city: form.city,
+        }),
+      });
 
-    window.open(`${config.payment_link}?${params.toString()}`, '_self');
-    setTimeout(() => setIsLoading(false), 1000);
+      const data = await response.json();
+
+      if (data.payment_link) {
+        window.open(data.payment_link, '_self');
+      } else if (data.url) {
+        window.open(data.url, '_self');
+      } else {
+        // Fallback: open Razorpay checkout directly with prefilled params
+        const params = new URLSearchParams({
+          name: form.fullName,
+          email: form.email,
+          contact: `+91${phoneNumber}`,
+        });
+        window.open(`https://rzp.io/rzp/vhef5ncx?${params.toString()}`, '_self');
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      // Fallback: open Razorpay checkout directly
+      const phoneNumber = form.phone.replace(/\D/g, '');
+      const params = new URLSearchParams({
+        name: form.fullName,
+        email: form.email,
+        contact: `+91${phoneNumber}`,
+      });
+      window.open(`https://rzp.io/rzp/vhef5ncx?${params.toString()}`, '_self');
+    } finally {
+      setTimeout(() => setIsLoading(false), 1000);
+    }
   };
 
   return (
@@ -72,29 +104,16 @@ const CheckoutSection = () => {
 
         <div className="bg-card rounded-2xl p-6 md:p-8 shadow-lg border">
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="firstName" className="block text-sm font-semibold mb-1">First name *</label>
-                <input
-                  id="firstName"
-                  name="firstName"
-                  value={form.firstName}
-                  onChange={handleChange}
-                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.firstName ? 'border-red-500' : ''}`}
-                />
-                {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
-              </div>
-              <div>
-                <label htmlFor="lastName" className="block text-sm font-semibold mb-1">Last name *</label>
-                <input
-                  id="lastName"
-                  name="lastName"
-                  value={form.lastName}
-                  onChange={handleChange}
-                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.lastName ? 'border-red-500' : ''}`}
-                />
-                {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
-              </div>
+            <div>
+              <label htmlFor="fullName" className="block text-sm font-semibold mb-1">Full Name *</label>
+              <input
+                id="fullName"
+                name="fullName"
+                value={form.fullName}
+                onChange={handleChange}
+                className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.fullName ? 'border-red-500' : ''}`}
+              />
+              {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
             </div>
 
             <div>
