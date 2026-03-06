@@ -74,60 +74,65 @@ const CheckoutSection = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold mb-1">First name *</label>
-                <input 
-                  name="firstName" 
-                  value={form.firstName} 
-                  onChange={handleChange} 
-                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.firstName ? 'border-red-500' : ''}`} 
+                <label htmlFor="firstName" className="block text-sm font-semibold mb-1">First name *</label>
+                <input
+                  id="firstName"
+                  name="firstName"
+                  value={form.firstName}
+                  onChange={handleChange}
+                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.firstName ? 'border-red-500' : ''}`}
                 />
                 {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
               </div>
               <div>
-                <label className="block text-sm font-semibold mb-1">Last name *</label>
-                <input 
-                  name="lastName" 
-                  value={form.lastName} 
-                  onChange={handleChange} 
-                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.lastName ? 'border-red-500' : ''}`} 
+                <label htmlFor="lastName" className="block text-sm font-semibold mb-1">Last name *</label>
+                <input
+                  id="lastName"
+                  name="lastName"
+                  value={form.lastName}
+                  onChange={handleChange}
+                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.lastName ? 'border-red-500' : ''}`}
                 />
                 {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-1">Email *</label>
-              <input 
-                name="email" 
-                type="email" 
-                value={form.email} 
-                onChange={handleChange} 
-                className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.email ? 'border-red-500' : ''}`} 
+              <label htmlFor="email" className="block text-sm font-semibold mb-1">Email *</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.email ? 'border-red-500' : ''}`}
               />
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-1">Town / City *</label>
-              <input 
-                name="city" 
-                value={form.city} 
-                onChange={handleChange} 
-                className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.city ? 'border-red-500' : ''}`} 
+              <label htmlFor="city" className="block text-sm font-semibold mb-1">Town / City *</label>
+              <input
+                id="city"
+                name="city"
+                value={form.city}
+                onChange={handleChange}
+                className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.city ? 'border-red-500' : ''}`}
               />
               {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-1">Phone *</label>
+              <label htmlFor="phone" className="block text-sm font-semibold mb-1">Phone *</label>
               <div className="flex gap-2">
                 <span className="flex items-center bg-muted rounded-lg px-3 text-sm font-semibold">+91</span>
-                <input 
-                  name="phone" 
-                  type="tel" 
-                  value={form.phone} 
-                  onChange={handleChange} 
-                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.phone ? 'border-red-500' : ''}`} 
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  value={form.phone}
+                  onChange={handleChange}
+                  className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.phone ? 'border-red-500' : ''}`}
                 />
               </div>
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}

@@ -40,6 +40,7 @@ const VideoCard = ({ v }: { v: (typeof videos)[0] }) => {
               {v.thumbnail ? (
                 <img
                   src={v.thumbnail}
+                  alt="Client video review thumbnail"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />

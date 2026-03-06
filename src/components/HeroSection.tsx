@@ -74,12 +74,15 @@ const HeroSection = () => {
                     <img
                       src={heroImage}
                       alt="Wellness Workshop"
+                      width={800}
+                      height={450}
                       className="w-full h-full object-cover"
                       fetchPriority="high"
                     />
                     {/* Play Button Overlay */}
-                    <button 
+                    <button
                       onClick={() => setIsPlaying(true)}
+                      aria-label="Play workshop video"
                       className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors cursor-pointer"
                     >
                       <Play className="text-primary ml-1" size={32} />
