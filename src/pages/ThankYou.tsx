@@ -9,12 +9,6 @@ const ThankYou = () => {
   const [confetti] = useState(true);
 
   useEffect(() => {
-    if (window.fbq) {
-      window.fbq("init", "945210531500711");
-      window.fbq("init", "1278108320936716");
-      window.fbq("track", "PageView");
-      window.fbq("trackSingle", "1278108320936716", "Purchase");
-    }
     localStorage.removeItem("lastRegistration");
   }, []);
 
