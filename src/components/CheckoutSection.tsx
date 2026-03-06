@@ -164,7 +164,7 @@ const CheckoutSection = () => {
             <button 
               type="submit"
               disabled={isLoading}
-              className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 animate-pulse-slow"
             >
               {isLoading ? (
                 <>
