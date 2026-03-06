@@ -5,7 +5,7 @@ const BACKEND_URL = "https://fm4.onrender.com";
 
 const CheckoutSection = () => {
   const [form, setForm] = useState({
-    fullName: "", email: "", city: "", phone: "", bookingFor: "myself",
+    fullName: "", email: "", city: "", phone: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -29,9 +29,9 @@ const CheckoutSection = () => {
     }
     if (!form.city.trim()) newErrors.city = "City is required";
     if (!form.phone.trim()) {
-      newErrors.phone = "Phone number is required";
+      newErrors.phone = "WhatsApp number is required";
     } else if (!/^\d{10}$/.test(form.phone.replace(/\D/g, ''))) {
-      newErrors.phone = "Please enter a valid 10-digit phone number";
+      newErrors.phone = "Please enter a valid 10-digit WhatsApp number";
     }
 
     setErrors(newErrors);
@@ -49,8 +49,18 @@ const CheckoutSection = () => {
 
     setIsLoading(true);
 
+    const phoneNumber = form.phone.replace(/\D/g, '');
+    const razorpayParams = new URLSearchParams({
+      name: form.fullName,
+      email: form.email,
+      contact: `+91${phoneNumber}`,
+      "notes[city]": form.city,
+    });
+    const razorpayUrl = `https://rzp.io/rzp/vhef5ncx?${razorpayParams.toString()}`;
+
     try {
-      const phoneNumber = form.phone.replace(/\D/g, '');
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
 
       const response = await fetch(`${BACKEND_URL}/api/pre-register`, {
         method: "POST",
@@ -63,7 +73,9 @@ const CheckoutSection = () => {
           phone: phoneNumber,
           city: form.city,
         }),
+        signal: controller.signal,
       });
+      clearTimeout(timeout);
 
       const data = await response.json();
 
@@ -77,6 +89,7 @@ const CheckoutSection = () => {
           name: form.fullName,
           email: form.email,
           contact: `+91${phoneNumber}`,
+          "notes[city]": form.city,
         });
         window.open(`https://rzp.io/rzp/vhef5ncx?${params.toString()}`, '_self');
       }
@@ -88,6 +101,7 @@ const CheckoutSection = () => {
         name: form.fullName,
         email: form.email,
         contact: `+91${phoneNumber}`,
+        "notes[city]": form.city,
       });
       window.open(`https://rzp.io/rzp/vhef5ncx?${params.toString()}`, '_self');
     } finally {
@@ -142,7 +156,7 @@ const CheckoutSection = () => {
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-semibold mb-1">Phone *</label>
+              <label htmlFor="phone" className="block text-sm font-semibold mb-1">WhatsApp Number *</label>
               <div className="flex gap-2">
                 <span className="flex items-center bg-muted rounded-lg px-3 text-sm font-semibold">+91</span>
                 <input
@@ -155,18 +169,6 @@ const CheckoutSection = () => {
                 />
               </div>
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold mb-1">Booking for *</label>
-              <div className="flex gap-4">
-                {["myself", "loved-one"].map((v) => (
-                  <label key={v} className="flex items-center gap-2 cursor-pointer">
-                    <input type="radio" name="bookingFor" value={v} checked={form.bookingFor === v} onChange={handleChange} className="accent-primary" />
-                    <span className="text-sm capitalize">{v === "loved-one" ? "Loved One" : "Myself"}</span>
-                  </label>
-                ))}
-              </div>
             </div>
 
             {/* Order summary */}
