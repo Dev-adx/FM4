@@ -59,7 +59,7 @@ const CheckoutSection = () => {
       contact: `+91${phoneNumber}`,
     });
 
-    window.open(`${config.payment_link}?${params.toString()}`, '_blank');
+    window.open(`${config.payment_link}?${params.toString()}`, '_self');
     setTimeout(() => setIsLoading(false), 1000);
   };
 

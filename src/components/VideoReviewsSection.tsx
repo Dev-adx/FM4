@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Mic, Play } from "lucide-react";
 import fm4Image from "@/assets/fm4.webp";
 import maheshImage from "@/assets/mahesh.webp";
 import pallaviImage from "@/assets/pallavi.webp";
@@ -9,58 +8,30 @@ import rajivImage from "@/assets/rajiv.webp";
 import kamalImage from "@/assets/kamal.webp";
 
 const videos = [
-  { id: "1037391319", hash: "90c39e7abf", thumbnail: fm4Image },
-  { id: "1037337143", hash: "cd71981f29", thumbnail: maheshImage },
-  { id: "1037337766", hash: "23bc18ac1c", thumbnail: pallaviImage },
-  { id: "1036989531", hash: "bdcfbbf55e", thumbnail: ankitImage },
-  { id: "1036990802", hash: "b559cf8df7", thumbnail: arthiImage },
-  { id: "1036989280", hash: "61dd3cfc96", thumbnail: rajivImage },
-  { id: "1036989452", hash: "cfca58d257", thumbnail: kamalImage },
+  { id: "16WYlBUUHHkZwnHRgeUpa5OxHNpg6cSJJ", type: "drive" },
+  { id: "1oHTMJeo2kgn1w1ygYlX2caYDNIN3MF_L", type: "drive" },
+  { id: "1fOdFeIfxdNX9SJEi_Ql9rvrqNf3toHe0", type: "drive"},
+  { id: "1BF2ZmCDecx6x02oay2awLXMMJEPeuk_4", type: "drive"},
+  { id: "1f1AdcCFpgmA7VnVAKK9uofPIQ5z4HwvB", type: "drive" },
+  { id: "1uSX7lKwJUS_dwBr72lHkNqjIUJKwr8ZG", type: "drive"},
 ];
 
 const VideoCard = ({ v }: { v: (typeof videos)[0] }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const videoSrc = v.type === "drive" 
+    ? `https://drive.google.com/file/d/${v.id}/preview`
+    : `https://player.vimeo.com/video/${v.id}?h=${(v as any).hash}&autoplay=1&title=0&byline=0&portrait=0`;
 
   return (
     <div className="relative rounded-xl overflow-hidden shadow-lg bg-[#1a2e3d]">
-      {/* 16:9 container */}
+      {/* 16:9 container - video shown directly */}
       <div className="relative" style={{ paddingTop: "56.25%" }}>
-        {isPlaying ? (
-          <iframe
-            src={`https://player.vimeo.com/video/${v.id}?h=${v.hash}&autoplay=1&title=0&byline=0&portrait=0`}
-            className="absolute top-0 left-0 w-full h-full"
-            style={{ border: "none" }}
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          <>
-            {/* Cover Image */}
-            <div className="absolute top-0 left-0 w-full h-full bg-black">
-              {v.thumbnail ? (
-                <img
-                  src={v.thumbnail}
-                  alt="Client video review thumbnail"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="w-full h-full bg-[#1a2e3d]" />
-              )}
-              {/* Play Button */}
-              <button
-                onClick={() => setIsPlaying(true)}
-                aria-label="Play client review video"
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors cursor-pointer"
-              >
-                <Play className="text-primary ml-0.5" size={24} />
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-      {/* Yellow tag */}
-      <div className="absolute top-3 left-3 bg-cta text-cta-foreground text-xs font-heading font-bold px-3 py-1 rounded">
+        <iframe
+          src={videoSrc}
+          className="absolute top-0 left-0 w-full h-full pointer-events-none"
+          style={{ border: "none" }}
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+        />
       </div>
     </div>
   );
@@ -95,7 +66,7 @@ const VideoReviewsSection = () => {
   };
 
   return (
-    <section className="bg-section-white pt-8 pb-10">
+    <section className="bg-section-white pt-5 pb-6">
       <div className="container max-w-6xl">
         <h2 className="text-2xl md:text-3xl font-heading font-bold text-center mb-8">
           Healthy &amp; Happy Client{" "}
@@ -126,6 +97,7 @@ const VideoReviewsSection = () => {
         <div className="md:hidden">
           <div 
             className="overflow-hidden"
+            style={{ touchAction: "pan-y" }}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
