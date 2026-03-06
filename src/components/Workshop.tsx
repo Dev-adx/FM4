@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import painImage from "@/assets/pain.jpg";
+import painImage from "@/assets/pain.webp";
 
 const painPoints = [
   <>Is your <span className="text-primary font-bold">chronic pain</span> affecting your <span className="text-primary font-bold">personal &amp; professional</span> life that's making you scared about your future?</>,
@@ -57,7 +57,7 @@ const PainPointsSection = () => (
           className="w-44 h-44 rounded-full overflow-hidden shadow-xl"
           style={{ border: "6px solid #22c55e" }}
         >
-          <img src={painImage} alt="Pain" className="w-full h-full object-cover" />
+          <img src={painImage} alt="Pain" className="w-full h-full object-cover" loading="lazy" />
         </div>
 
         {/* Numbered cards */}

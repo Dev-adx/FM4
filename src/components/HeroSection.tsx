@@ -51,7 +51,7 @@ const HeroSection = () => {
 
         {/* Google Reviews */}
         <div className="flex items-center justify-center mb-4">
-          <img src={googleReviews} alt="Google Reviews" className="h-16 md:h-20" />
+          <img src={googleReviews} alt="Google Reviews" className="h-16 md:h-20" loading="lazy" />
         </div>
 
         {/* Hero content */}
@@ -72,10 +72,11 @@ const HeroSection = () => {
                   ></iframe>
                 ) : (
                   <>
-                    <img 
-                      src={heroImage} 
-                      alt="Wellness Workshop" 
+                    <img
+                      src={heroImage}
+                      alt="Wellness Workshop"
                       className="w-full h-full object-cover"
+                      fetchPriority="high"
                     />
                     {/* Play Button Overlay */}
                     <button 

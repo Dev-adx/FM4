@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import painBack from "@/assets/back.jpg";
-import painSurgery from "@/assets/surgery.jpg";
-import painBill from "@/assets/bill.jpg";
+import painBack from "@/assets/back.webp";
+import painSurgery from "@/assets/surgery.webp";
+import painBill from "@/assets/bill.webp";
 
 const stats = [
   { img: painBack, prefix: "", end: 10000, suffix: "+", label: "Spine, Knee & Neck Pain\nReversed Successfully!" },
