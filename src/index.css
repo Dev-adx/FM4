@@ -118,6 +118,7 @@
 
   .animate-pulse-slow {
     animation: bounce-cta 0.8s ease-in-out infinite;
+    will-change: transform;
   }
 
   @keyframes bounce-cta {

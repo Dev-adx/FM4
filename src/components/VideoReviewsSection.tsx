@@ -50,6 +50,7 @@ const VideoCard = ({ v }: { v: (typeof videos)[0] }) => {
               {/* Play Button */}
               <button
                 onClick={() => setIsPlaying(true)}
+                aria-label="Play client review video"
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors cursor-pointer"
               >
                 <Play className="text-primary ml-0.5" size={24} />
@@ -142,15 +143,18 @@ const VideoReviewsSection = () => {
           </div>
 
           {/* Dots */}
-          <div className="flex justify-center gap-2 mt-4">
+          <div className="flex justify-center gap-1 mt-4">
             {videos.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentIndex(i)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
+                aria-label={`Go to video ${i + 1}`}
+                className="flex items-center justify-center p-3"
+              >
+                <span className={`h-2.5 rounded-full transition-all duration-300 block ${
                   i === currentIndex ? "bg-primary w-6" : "bg-gray-300 w-2.5"
-                }`}
-              />
+                }`} />
+              </button>
             ))}
           </div>
         </div>

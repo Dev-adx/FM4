@@ -152,7 +152,7 @@ const CheckoutSection = () => {
 
             {/* Order summary */}
             <div className="bg-muted rounded-xl p-4 mt-4">
-              <h4 className="font-heading font-bold mb-3">Order Summary</h4>
+              <h3 className="font-heading font-bold mb-3">Order Summary</h3>
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm">Ticket for Pain Free with FM4 Workshop × 1</span>
                 <span className="font-bold">₹99.00</span>

@@ -119,15 +119,18 @@ const ReviewsSection = () => {
           </div>
 
           {/* Dots */}
-          <div className="flex justify-center gap-2 mt-5">
+          <div className="flex justify-center gap-1 mt-5">
             {reviews.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
+                aria-label={`Go to review ${i + 1}`}
+                className="flex items-center justify-center p-3"
+              >
+                <span className={`h-2.5 rounded-full transition-all duration-300 block ${
                   i === active ? "bg-primary w-6" : "bg-gray-300 w-2.5"
-                }`}
-              />
+                }`} />
+              </button>
             ))}
           </div>
         </div>
