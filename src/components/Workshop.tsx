@@ -9,7 +9,7 @@ const painPoints = [
 ];
 
 const PainPointsSection = () => (
-  <section className="bg-section-white py-14">
+  <section className="bg-section-white pt-10 pb-8">
     <div className="container max-w-5xl">
       <h2 className="text-2xl md:text-4xl font-heading font-bold text-center mb-10">
         Are You Struggling To{" "}
@@ -92,13 +92,7 @@ const PainPointsSection = () => (
         onClick={() => { (window as any).fbq?.('track', 'AddToCart'); (window as any).fbq?.('track', 'Subscribe'); }}
         className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta animate-pulse-slow"
       >
-        Book Your Seat For{" "}
-        <span className="line-through opacity-70">₹499</span>{" "}
-        ₹99
-        <ArrowRight className="inline ml-2" size={24} />
-        <span className="block text-sm font-body font-normal mt-1 opacity-80">
-          100% money back guarantee
-        </span>
+        Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
       </a>
     </div>
   </section>

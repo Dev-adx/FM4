@@ -38,10 +38,14 @@ const Index = () => {
         <FooterSection />
       </Suspense>
 
-      {/* Sticky mobile CTA */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden z-50 p-3 bg-card/95 backdrop-blur border-t">
-        <a href="#checkout" onClick={() => (window as any).fbq?.('track', 'AddToCart')} className="block bg-cta text-cta-foreground text-center font-heading font-bold py-3 rounded-xl shadow-cta">
-          Book Now – Get 81% OFF →
+      {/* Sticky CTA */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 p-2 md:p-3 bg-card/95 backdrop-blur border-t">
+        <a 
+          href="#checkout" 
+          onClick={() => { (window as any).fbq?.('track', 'AddToCart'); (window as any).fbq?.('track', 'Subscribe'); }} 
+          className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-3 md:py-4 px-6 md:px-8 text-center font-heading font-bold text-base md:text-xl transition-all duration-300 shadow-cta animate-pulse-slow"
+        >
+          Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
         </a>
       </div>
     </main>

@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { Calendar, Clock, Video, Globe, ArrowRight, Star, Play } from "lucide-react";
+import { Calendar, Clock, Video, Globe, Star, Play } from "lucide-react";
 import googleReviews from "@/assets/google.webp";
 import heroImage from "@/assets/Hero.webp";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
-const CTAButton = ({ text = "Book Now – Get 81% OFF", sub = "100% money back guarantee" }: { text?: string; sub?: string }) => (
+const CTAButton = ({ text = "Secure Your Seat @ ₹499 ₹99" }: { text?: string }) => (
   <a
     href="#checkout"
     onClick={() => { (window as any).fbq?.('track', 'AddToCart'); (window as any).fbq?.('track', 'Subscribe'); }}
     className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta animate-pulse-slow"
   >
-    {text} <ArrowRight className="inline ml-2" size={24} />
-    {sub && <span className="block text-sm font-body font-normal mt-1 opacity-80">{sub}</span>}
+    Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
   </a>
 );
 
@@ -110,7 +109,7 @@ const HeroSection = () => {
             <CTAButton />
 
             <p className="text-center font-heading font-bold text-sm">
-              🔥 Last <span className="bg-primary text-primary-foreground px-2 py-0.5 rounded-xl">155</span> Seats Left — Booking Closes Once Full!
+              🔥 Last <span className="bg-primary text-primary-foreground px-2 py-0.5 rounded-xl">43</span> Seats Left — Booking Closes Once Full!
             </p>
           </div>
         </div>

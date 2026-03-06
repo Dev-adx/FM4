@@ -93,7 +93,7 @@ const VideoReviewsSection = () => {
   };
 
   return (
-    <section className="bg-section-white py-14">
+    <section className="bg-section-white pt-8 pb-10">
       <div className="container max-w-6xl">
         <h2 className="text-2xl md:text-3xl font-heading font-bold text-center mb-8">
           Healthy &amp; Happy Client{" "}

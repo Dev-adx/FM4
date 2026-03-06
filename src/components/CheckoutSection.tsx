@@ -172,7 +172,7 @@ const CheckoutSection = () => {
                   Processing...
                 </>
               ) : (
-                "Place Your Order — ₹99.00"
+                "Book your Seat — ₹99.00"
               )}
             </button>
 

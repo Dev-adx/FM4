@@ -30,7 +30,7 @@ const AboutSection = () => {
   };
 
   return (
-    <section className="bg-section-white py-14">
+    <section className="bg-section-white pt-8 pb-8">
       <div className="container max-w-4xl">
 
         <h2 className="text-2xl md:text-4xl font-heading font-bold text-center mb-10">
@@ -38,7 +38,7 @@ const AboutSection = () => {
         </h2>
 
         {/* Row 1: sliding celebs LEFT | text RIGHT */}
-        <div className="grid md:grid-cols-2 gap-10 items-center mb-14">
+        <div className="grid md:grid-cols-2 gap-10 items-center mb-6">
 
           {/* Left: celebrity image carousel */}
           <div>
@@ -77,11 +77,8 @@ const AboutSection = () => {
 
           {/* Right: credentials text */}
           <div className="space-y-3">
-            <h3 className="font-heading font-bold text-lg md:text-xl">
-              With 19 years of expertise in the Health &amp; Fitness industry
-            </h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Sourobh Kulkarni has helped over 10,000 clients overcome chronic pain, including discomfort in the back, neck, and knees, as well as various other mobility challenges.
+            <p className="text-lg md:text-xl leading-relaxed font-semibold">
+              Sourobh Kulkorni, one of the India's leading Health &amp; Wellness professional practicing in Pune, boasting of several Fellowships and experience garnered internationally as well as in India.
             </p>
           </div>
 
@@ -90,15 +87,18 @@ const AboutSection = () => {
         {/* Row 2: text LEFT | portrait video RIGHT */}
         <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
 
-          <div className="space-y-4">
-            <h3 className="font-heading font-bold text-lg md:text-xl">
-              Amazing Performer in Fitness Industry 2024
-            </h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              A solution that's proven effective across a diverse range of clients—from famous celebrities and athletes to busy working professionals, stay-at-home parents, and elderly patients
+          <div className="space-y-5 font-semibold">
+            <p className="text-lg md:text-xl leading-relaxed">
+              He holds multiple degrees and certifications in fitness and wellness as well as in rehab, demonstrating his extensive expertise in the field.
             </p>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              His approach is holistic and non-invasive, offering long-lasting relief without relying on medications, surgeries, or traditional physiotherapy. Sourobh's unique therapy focuses on addressing the root causes of pain, not just masking the symptoms, which is why his methods have earned him a reputation as one of the most successful experts in the health domain.
+            <p className="text-lg md:text-xl leading-relaxed font-bold text-primary">
+              Recognized as Amazing Performer in Fitness & Wellness Industry 2024-2025
+            </p>
+            <p className="text-lg md:text-xl leading-relaxed">
+              With <span className="font-semibold">19+ years of experience</span>, Sourobh pioneered <span className="font-semibold">FM4 Therapy</span> — a comprehensive treatment enabling complete recovery from painful conditions without medication or surgical intervention.
+            </p>
+            <p className="text-lg md:text-xl leading-relaxed">
+              He has successfully treated over <span className="font-semibold">10,000+ patients</span> with varied musculoskeletal disorders across all age groups.
             </p>
           </div>
 
@@ -128,12 +128,7 @@ const AboutSection = () => {
           onClick={() => { (window as any).fbq?.('track', 'AddToCart'); (window as any).fbq?.('track', 'Subscribe'); }}
           className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta animate-pulse-slow"
         >
-          Book Your Seat For{" "}
-          <span className="line-through opacity-70">₹499</span> ₹99
-          <ArrowRight className="inline ml-2" size={24} />
-          <span className="block text-sm font-body font-normal mt-1 opacity-80">
-            100% money back guarantee
-          </span>
+          Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
         </a>
 
       </div>
