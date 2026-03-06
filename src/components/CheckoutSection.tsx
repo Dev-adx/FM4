@@ -84,26 +84,11 @@ const CheckoutSection = () => {
       } else if (data.url) {
         window.open(data.url, '_self');
       } else {
-        // Fallback: open Razorpay checkout directly with prefilled params
-        const params = new URLSearchParams({
-          name: form.fullName,
-          email: form.email,
-          contact: `+91${phoneNumber}`,
-          "notes[city]": form.city,
-        });
-        window.open(`https://rzp.io/rzp/vhef5ncx?${params.toString()}`, '_self');
+        window.open(razorpayUrl, '_self');
       }
     } catch (error) {
       console.error("Payment error:", error);
-      // Fallback: open Razorpay checkout directly
-      const phoneNumber = form.phone.replace(/\D/g, '');
-      const params = new URLSearchParams({
-        name: form.fullName,
-        email: form.email,
-        contact: `+91${phoneNumber}`,
-        "notes[city]": form.city,
-      });
-      window.open(`https://rzp.io/rzp/vhef5ncx?${params.toString()}`, '_self');
+      window.open(razorpayUrl, '_self');
     } finally {
       setTimeout(() => setIsLoading(false), 1000);
     }
