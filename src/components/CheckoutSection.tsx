@@ -56,7 +56,7 @@ const CheckoutSection = () => {
       contact: `+91${phoneNumber}`,
       "notes[city]": form.city,
     });
-    const razorpayUrl = `https://rzp.io/rzp/vhef5ncx?${razorpayParams.toString()}`;
+    const razorpayUrl = `https://rzp.io/rzp/pOMBaZk2?${razorpayParams.toString()}`;
 
     try {
       const controller = new AbortController();
