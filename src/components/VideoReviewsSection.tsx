@@ -41,6 +41,7 @@ const VideoReviewsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [overlayPointerEvents, setOverlayPointerEvents] = useState<"auto" | "none">("auto");
   const minSwipeDistance = 50;
 
   const onTouchStart = (e: React.TouchEvent) => {
@@ -52,16 +53,25 @@ const VideoReviewsSection = () => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
+  const passThrough = () => {
+    setOverlayPointerEvents("none");
+    setTimeout(() => setOverlayPointerEvents("auto"), 500);
+  };
+
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd) {
+      passThrough();
+      return;
+    }
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
     if (isLeftSwipe && currentIndex < videos.length - 1) {
       setCurrentIndex(currentIndex + 1);
-    }
-    if (isRightSwipe && currentIndex > 0) {
+    } else if (isRightSwipe && currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
+    } else {
+      passThrough();
     }
   };
 
@@ -95,13 +105,22 @@ const VideoReviewsSection = () => {
 
         {/* Mobile: single card carousel */}
         <div className="md:hidden">
-          <div 
-            className="overflow-hidden"
+          <div
+            className="overflow-hidden relative"
             style={{ touchAction: "pan-y" }}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
           >
+            {/* Transparent overlay to capture swipe events over iframes */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                zIndex: 10,
+                pointerEvents: overlayPointerEvents,
+              }}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            />
             <div
               className="flex transition-transform duration-300 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}

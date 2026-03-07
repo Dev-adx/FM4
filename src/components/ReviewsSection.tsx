@@ -100,8 +100,9 @@ const ReviewsSection = () => {
 
         {/* Mobile: single card carousel */}
         <div className="md:hidden px-4">
-          <div 
+          <div
             className="overflow-hidden"
+            style={{ touchAction: "pan-y" }}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
