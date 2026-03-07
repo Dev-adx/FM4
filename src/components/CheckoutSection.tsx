@@ -48,8 +48,17 @@ if (!form.city.trim()) newErrors.city = "City is required";
 
     if (!validateForm()) return;
 
+    // Capture source/UTM from URL so ThankYou can write it to the sheet
+    const urlParams = new URLSearchParams(window.location.search);
+    const source =
+      urlParams.get("utm_source") ||
+      urlParams.get("utm_campaign") ||
+      urlParams.get("source") ||
+      document.referrer ||
+      "direct";
+
     // Save to localStorage for ThankYou page
-    localStorage.setItem("lastRegistration", JSON.stringify(form));
+    localStorage.setItem("lastRegistration", JSON.stringify({ ...form, source }));
 
     // Fire-and-forget to backend
     fetch(`${BACKEND_URL}/api/pre-register`, {

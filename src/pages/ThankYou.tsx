@@ -34,6 +34,7 @@ const ThankYou = () => {
           profession: "",
           txnid: paymentId,
           amount: "99",
+          source: formData.source || "direct",
         }),
       }).catch(console.error);
     }
