@@ -5,8 +5,8 @@ const BACKEND_URL = "https://fm4.onrender.com";
 const RAZORPAY_PAYMENT_LINK = "https://pages.razorpay.com/pl_SNdaFjyAcdeV7O/view";
 
 const CheckoutSection = () => {
-  const [form, setForm] = useState({
-    fullName: "", email: "", city: "", phone: "",
+const [form, setForm] = useState({
+    fullName: "", email: "", city: "", phone: "", age: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -27,7 +27,12 @@ const CheckoutSection = () => {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       newErrors.email = "Please enter a valid email";
     }
-    if (!form.city.trim()) newErrors.city = "City is required";
+if (!form.city.trim()) newErrors.city = "City is required";
+    if (!form.age.trim()) {
+      newErrors.age = "Age is required";
+    } else if (!/^\d{2}$/.test(form.age) || parseInt(form.age) < 18 || parseInt(form.age) > 99) {
+      newErrors.age = "Please enter a valid age (18-99)";
+    }
     if (!form.phone.trim()) {
       newErrors.phone = "WhatsApp number is required";
     } else if (!/^\d{10}$/.test(form.phone.replace(/\D/g, ''))) {
@@ -50,11 +55,12 @@ const CheckoutSection = () => {
     fetch(`${BACKEND_URL}/api/pre-register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+body: JSON.stringify({
         name: form.fullName.trim(),
         email: form.email,
         phone: form.phone.replace(/\D/g, ''),
         city: form.city,
+        age: form.age,
       }),
     }).catch(console.error);
 
@@ -111,7 +117,7 @@ const CheckoutSection = () => {
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
 
-            <div>
+<div>
               <label htmlFor="city" className="block text-sm font-semibold mb-1">Town / City *</label>
               <input
                 id="city"
@@ -121,6 +127,21 @@ const CheckoutSection = () => {
                 className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.city ? 'border-red-500' : ''}`}
               />
               {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
+            </div>
+
+            <div>
+              <label htmlFor="age" className="block text-sm font-semibold mb-1">Age *</label>
+              <input
+                id="age"
+                name="age"
+                type="number"
+                min="18"
+                max="99"
+                value={form.age}
+                onChange={handleChange}
+                className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.age ? 'border-red-500' : ''}`}
+              />
+              {errors.age && <p className="text-red-500 text-xs mt-1">{errors.age}</p>}
             </div>
 
             <div>
