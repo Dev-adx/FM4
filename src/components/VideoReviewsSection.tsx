@@ -18,7 +18,7 @@ const videos = [
 
 const VideoCard = ({ v }: { v: (typeof videos)[0] }) => {
   const videoSrc = v.type === "drive" 
-    ? `https://drive.google.com/file/d/${v.id}/preview`
+    ? `https://drive.google.com/file/d/${v.id}/embed`
     : `https://player.vimeo.com/video/${v.id}?h=${(v as any).hash}&autoplay=1&title=0&byline=0&portrait=0`;
 
   return (
@@ -27,9 +27,9 @@ const VideoCard = ({ v }: { v: (typeof videos)[0] }) => {
       <div className="relative" style={{ paddingTop: "56.25%" }}>
         <iframe
           src={videoSrc}
-          className="absolute top-0 left-0 w-full h-full pointer-events-none"
+          className="absolute top-0 left-0 w-full h-full"
           style={{ border: "none" }}
-          allow="autoplay; fullscreen; picture-in-picture"
+          allow="autoplay; fullscreen; picture-in-picture; playsinline"
           allowFullScreen
         />
       </div>
