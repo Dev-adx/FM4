@@ -43,8 +43,8 @@ router.post("/", async (req, res) => {
       email,
       phone,
       profession,
-      Txnid: razorpay_payment_id,
-      Amount: "99",
+      txnid: razorpay_payment_id,
+      amount: "99",
     });
 
     return res.json({ success: true });

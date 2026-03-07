@@ -87,8 +87,8 @@ router.post("/", async (req, res) => {
         email: formData.email || email,
         phone: formData.phone || phone,
         profession: formData.profession || rzOccupation,
-        Txnid: paymentId,
-        Amount: amount,
+        txnid: paymentId,
+        amount: amount,
       };
 
       await axios.post(process.env.GOOGLE_SHEET_URL, row);
