@@ -1,6 +1,7 @@
 import { format, parseISO } from "date-fns";
 
 export function formatDateWithSuffix(dateString: string): string {
+  if (!dateString) return "TBD";
   const date = parseISO(dateString);
   const day = date.getDate();
   const suffix = getOrdinalSuffix(day);
@@ -8,6 +9,7 @@ export function formatDateWithSuffix(dateString: string): string {
 }
 
 export function formatTime(dateString: string): string {
+  if (!dateString) return "TBD";
   const date = parseISO(dateString);
   return format(date, "h:mm a");
 }

@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Shield, Lock, Loader2 } from "lucide-react";
+import { Shield, Lock } from "lucide-react";
 
 const BACKEND_URL = "https://fm4.onrender.com";
+const RAZORPAY_PAYMENT_LINK = "https://pages.razorpay.com/pl_SNdaFjyAcdeV7O/view";
 
 const CheckoutSection = () => {
   const [form, setForm] = useState({
     fullName: "", email: "", city: "", phone: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -38,60 +38,43 @@ const CheckoutSection = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
+    // Save to localStorage for ThankYou page
+    localStorage.setItem("lastRegistration", JSON.stringify(form));
+
+    // Fire-and-forget to backend
+    fetch(`${BACKEND_URL}/api/pre-register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: form.fullName.trim(),
+        email: form.email,
+        phone: form.phone.replace(/\D/g, ''),
+        city: form.city,
+      }),
+    }).catch(console.error);
+
+    // Track Facebook pixel
     if ((window as any).fbq) {
       (window as any).fbq('track', 'InitiateCheckout');
     }
 
-    setIsLoading(true);
-
-    const phoneNumber = form.phone.replace(/\D/g, '');
-    const razorpayParams = new URLSearchParams({
-      name: form.fullName,
+    // Redirect with prefilled params after short delay to let pixel fire
+    // pages.razorpay.com uses full_name and phone (not name/contact)
+    const params = new URLSearchParams({
+      full_name: form.fullName,
       email: form.email,
-      contact: `+91${phoneNumber}`,
-      "notes[city]": form.city,
+      phone: form.phone.replace(/\D/g, ''),
+      city: form.city,
     });
-    const razorpayUrl = `https://rzp.io/rzp/pOMBaZk2?${razorpayParams.toString()}`;
 
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(`${BACKEND_URL}/api/pre-register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: form.fullName.trim(),
-          email: form.email,
-          phone: phoneNumber,
-          city: form.city,
-        }),
-        signal: controller.signal,
-      });
-      clearTimeout(timeout);
-
-      const data = await response.json();
-
-      if (data.payment_link) {
-        window.open(data.payment_link, '_self');
-      } else if (data.url) {
-        window.open(data.url, '_self');
-      } else {
-        window.open(razorpayUrl, '_self');
-      }
-    } catch (error) {
-      console.error("Payment error:", error);
-      window.open(razorpayUrl, '_self');
-    } finally {
-      setTimeout(() => setIsLoading(false), 1000);
-    }
+    setTimeout(() => {
+      window.location.href = `${RAZORPAY_PAYMENT_LINK}?${params.toString()}`;
+    }, 300);
   };
 
   return (
@@ -172,19 +155,11 @@ const CheckoutSection = () => {
               </div>
             </div>
 
-            <button 
+            <button
               type="submit"
-              disabled={isLoading}
-              className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta flex items-center justify-center gap-2"
             >
-              {isLoading ? (
-                <>
-                  <Loader2 className="animate-spin" size={20} />
-                  Processing...
-                </>
-              ) : (
-                "Book your Seat — ₹99.00"
-              )}
+              Book your Seat — ₹99.00
             </button>
 
             <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm">

@@ -11,7 +11,7 @@ const defaultConfig: WorkshopConfig = {
   day1_datetime: "2026-03-07T20:00:00",
   day2_datetime: "2026-03-08T10:00:00",
   whatsapp_link: "https://chat.whatsapp.com/LstNYqmqemz51zgzgGYazi",
-  payment_link: "https://rzp.io/rzp/vhef5ncx",
+  payment_link: "https://rzp.io/rzp/pOMBaZk2",
 };
 
 const SHEETS_URL =
