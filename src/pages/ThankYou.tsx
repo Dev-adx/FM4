@@ -30,7 +30,7 @@ const ThankYou = () => {
           city: formData.city || "",
           email: formData.email || "",
           phone: formData.phone || "",
-          age: "",
+          age: formData.age || "",
           profession: "",
           txnid: paymentId,
           amount: "99",
