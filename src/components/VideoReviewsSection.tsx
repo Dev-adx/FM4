@@ -1,24 +1,19 @@
 import React, { useState } from "react";
-import fm4Image from "@/assets/fm4.webp";
-import maheshImage from "@/assets/mahesh.webp";
-import pallaviImage from "@/assets/pallavi.webp";
-import ankitImage from "@/assets/ankit.webp";
-import arthiImage from "@/assets/arthi.webp";
-import rajivImage from "@/assets/rajiv.webp";
-import kamalImage from "@/assets/kamal.webp";
 
 const videos = [
-  { id: "16WYlBUUHHkZwnHRgeUpa5OxHNpg6cSJJ", type: "drive" },
-  { id: "1oHTMJeo2kgn1w1ygYlX2caYDNIN3MF_L", type: "drive" },
-  { id: "1fOdFeIfxdNX9SJEi_Ql9rvrqNf3toHe0", type: "drive"},
-  { id: "1BF2ZmCDecx6x02oay2awLXMMJEPeuk_4", type: "drive"},
-  { id: "1f1AdcCFpgmA7VnVAKK9uofPIQ5z4HwvB", type: "drive" },
-  { id: "1uSX7lKwJUS_dwBr72lHkNqjIUJKwr8ZG", type: "drive"},
+  { id: "e0dpJqkI8p8", type: "youtube" },
+  { id: "8S7NqpV_WTA", type: "youtube" },
+  { id: "hyNLUKK-jeY", type: "youtube"},
+  { id: "pG3hV8yLGus", type: "youtube"},
+  { id: "l9WCoVbOq_Y", type: "youtube" },
+  { id: "bf_eKMSs9wY", type: "youtube"},
 ];
 
 const VideoCard = ({ v }: { v: (typeof videos)[0] }) => {
   const videoSrc = v.type === "drive" 
     ? `https://drive.google.com/file/d/${v.id}/preview`
+    : v.type === "youtube"
+    ? `https://www.youtube.com/embed/${v.id}`
     : `https://player.vimeo.com/video/${v.id}?h=${(v as any).hash}&autoplay=1&title=0&byline=0&portrait=0`;
 
   return (
