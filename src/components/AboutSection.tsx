@@ -109,7 +109,7 @@ const AboutSection = () => {
                 style={{ paddingTop: "177.78%" }}
               >
                 <iframe
-                  src="https://player.vimeo.com/video/1072068196?h=4c6578adfe&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0"
+                  src="https://www.youtube.com/embed/NIukesZn68Y?autoplay=1&loop=1&mute=1&playlist=NIukesZn68Y"
                   className="absolute inset-0 w-full h-full"
                   style={{ border: "none" }}
                   allow="autoplay; fullscreen; picture-in-picture"
