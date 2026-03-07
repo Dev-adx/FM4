@@ -71,11 +71,12 @@ body: JSON.stringify({
 
     // Redirect with prefilled params after short delay to let pixel fire
     // pages.razorpay.com uses full_name and phone (not name/contact)
-    const params = new URLSearchParams({
+const params = new URLSearchParams({
       full_name: form.fullName,
       email: form.email,
       phone: form.phone.replace(/\D/g, ''),
       city: form.city,
+      age: form.age,
     });
 
     setTimeout(() => {
@@ -131,12 +132,10 @@ body: JSON.stringify({
 
             <div>
               <label htmlFor="age" className="block text-sm font-semibold mb-1">Age *</label>
-              <input
+<input
                 id="age"
                 name="age"
                 type="number"
-                min="18"
-                max="99"
                 value={form.age}
                 onChange={handleChange}
                 className={`w-full rounded-lg border bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-primary/30 outline-none ${errors.age ? 'border-red-500' : ''}`}
