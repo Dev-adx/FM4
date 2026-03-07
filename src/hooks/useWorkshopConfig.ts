@@ -29,10 +29,15 @@ function normalizeDate(value: string): string {
   return value;
 }
 
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
 function getCachedConfig(): WorkshopConfig | null {
   try {
     const raw = localStorage.getItem(CACHE_KEY);
-    return raw ? JSON.parse(raw) : null;
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Date.now() - (parsed._cachedAt ?? 0) > CACHE_TTL_MS) return null;
+    return parsed;
   } catch {
     return null;
   }
@@ -53,7 +58,7 @@ export function useWorkshopConfig() {
           whatsapp_link: data.whatsapp_link || defaultConfig.whatsapp_link,
           payment_link: data.payment_link || defaultConfig.payment_link,
         };
-        localStorage.setItem(CACHE_KEY, JSON.stringify(fresh));
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ ...fresh, _cachedAt: Date.now() }));
         setConfig(fresh);
       })
       .catch(() => {

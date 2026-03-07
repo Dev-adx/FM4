@@ -4,7 +4,8 @@ import { GiPartyPopper } from "react-icons/gi";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
-const BACKEND_URL = "https://fm4.onrender.com";
+const GOOGLE_SHEET_URL =
+  "https://script.google.com/macros/s/AKfycbwtED-c_bRnvFaX4bUZrNOvaySenKN-asZRJtFRo-P21XbexUKqqzY2w-T_us0YXlVi/exec";
 
 const ThankYou = () => {
   const { config } = useWorkshopConfig();
@@ -13,18 +14,17 @@ const ThankYou = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get("razorpay_payment_id");
-    const paymentLinkId = params.get("razorpay_payment_link_id");
-    const paymentLinkReferenceId = params.get("razorpay_payment_link_reference_id");
     const paymentLinkStatus = params.get("razorpay_payment_link_status");
-    const signature = params.get("razorpay_signature");
 
     if (paymentId && paymentLinkStatus === "paid") {
       const saved = localStorage.getItem("lastRegistration");
       const formData = saved ? JSON.parse(saved) : {};
 
-      fetch(`${BACKEND_URL}/api/razorpay-success`, {
+      // Post directly to Google Sheet — no backend cold start
+      fetch(GOOGLE_SHEET_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({
           name: formData.fullName || "",
           city: formData.city || "",
@@ -32,11 +32,8 @@ const ThankYou = () => {
           phone: formData.phone || "",
           age: "",
           profession: "",
-          razorpay_payment_id: paymentId,
-          razorpay_payment_link_id: paymentLinkId,
-          razorpay_payment_link_reference_id: paymentLinkReferenceId,
-          razorpay_payment_link_status: paymentLinkStatus,
-          razorpay_signature: signature,
+          txnid: paymentId,
+          amount: "99",
         }),
       }).catch(console.error);
     }
