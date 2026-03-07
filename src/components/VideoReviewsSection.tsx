@@ -1,32 +1,67 @@
 import React, { useState } from "react";
+import kamalImg from "@/assets/kamal.webp";
+import maheshImg from "@/assets/mahesh.webp";
+import pallaviImg from "@/assets/pallavi.webp";
+import ankitImg from "@/assets/ankit.webp";
+import arthiImg from "@/assets/arthi.webp";
+import rajivImg from "@/assets/rajiv.webp";
+import fm4Img from "@/assets/fm4.webp";
 
 const videos = [
-  { id: "e0dpJqkI8p8", type: "youtube" },
-  { id: "8S7NqpV_WTA", type: "youtube" },
-  { id: "hyNLUKK-jeY", type: "youtube"},
-  { id: "pG3hV8yLGus", type: "youtube"},
-  { id: "l9WCoVbOq_Y", type: "youtube" },
-  { id: "bf_eKMSs9wY", type: "youtube"},
+  { id: "qbaYAi_4ewQ", type: "youtube", cover: kamalImg, name: "Kamal Gupta" },
+  { id: "S_Zf0N5tNFM", type: "youtube", cover: maheshImg, name: "Mahesh" },
+  { id: "Hrf9OBixQxg", type: "youtube", cover: pallaviImg, name: "Pallavi" },
+  { id: "adULn_sS3Qk", type: "youtube", cover: ankitImg, name: "Ankit" },
+  { id: "xcHecw4LR7I", type: "youtube", cover: arthiImg, name: "Aarti" },
+  { id: "lUb8YMY-0l0", type: "youtube", cover: rajivImg, name: "Rajiv" },
+  { id: "NzDIfxfSO3I", type: "youtube", cover: fm4Img, name: "FM4" },
 ];
 
 const VideoCard = ({ v }: { v: (typeof videos)[0] }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  
   const videoSrc = v.type === "drive" 
     ? `https://drive.google.com/file/d/${v.id}/preview`
     : v.type === "youtube"
-    ? `https://www.youtube.com/embed/${v.id}`
+    ? `https://www.youtube.com/embed/${v.id}?autoplay=1`
     : `https://player.vimeo.com/video/${v.id}?h=${(v as any).hash}&autoplay=1&title=0&byline=0&portrait=0`;
 
   return (
     <div className="relative rounded-xl overflow-hidden shadow-lg bg-[#1a2e3d]">
       {/* 16:9 container - video shown directly */}
       <div className="relative" style={{ paddingTop: "56.25%" }}>
-        <iframe
-          src={videoSrc}
-          className="absolute top-0 left-0 w-full h-full"
-          style={{ border: "none" }}
-          allow="autoplay; fullscreen; picture-in-picture; playsinline"
-          allowFullScreen
-        />
+        {isPlaying ? (
+          <iframe
+            src={videoSrc}
+            className="absolute top-0 left-0 w-full h-full"
+            style={{ border: "none" }}
+            allow="autoplay; fullscreen; picture-in-picture; playsinline"
+            allowFullScreen
+          />
+        ) : (
+          <div 
+            className="absolute top-0 left-0 w-full h-full cursor-pointer group"
+            onClick={() => setIsPlaying(true)}
+          >
+            <img 
+              src={v.cover} 
+              alt={v.name}
+              className="w-full h-full object-cover"
+            />
+            {/* Play button overlay */}
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-[#1a2e3d] ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+            {/* Name badge */}
+            <div className="absolute bottom-3 left-3 bg-black/70 px-3 py-1 rounded-full">
+              <span className="text-white text-sm font-medium">{v.name}</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
