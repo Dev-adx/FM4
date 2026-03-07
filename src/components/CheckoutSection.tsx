@@ -48,28 +48,45 @@ if (!form.city.trim()) newErrors.city = "City is required";
 
     if (!validateForm()) return;
 
-    // Capture source/UTM from URL so ThankYou can write it to the sheet
+    // Capture all UTM parameters from URL
     const urlParams = new URLSearchParams(window.location.search);
+    const utmParams = {
+      utm_source: urlParams.get("utm_source") || "",
+      utm_medium: urlParams.get("utm_medium") || "",
+      utm_campaign: urlParams.get("utm_campaign") || "",
+      utm_term: urlParams.get("utm_term") || "",
+      utm_content: urlParams.get("utm_content") || "",
+    };
+
+    // Determine primary source for tracking
     const source =
-      urlParams.get("utm_source") ||
-      urlParams.get("utm_campaign") ||
+      utmParams.utm_source ||
       urlParams.get("source") ||
       document.referrer ||
       "direct";
 
-    // Save to localStorage for ThankYou page
-    localStorage.setItem("lastRegistration", JSON.stringify({ ...form, source }));
+    // Save to localStorage for ThankYou page (include all UTM params)
+    localStorage.setItem("lastRegistration", JSON.stringify({ 
+      ...form, 
+      source,
+      ...utmParams 
+    }));
 
-    // Fire-and-forget to backend
+    // Fire-and-forget to backend (include UTM params)
     fetch(`${BACKEND_URL}/api/pre-register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-body: JSON.stringify({
+      body: JSON.stringify({
         name: form.fullName.trim(),
         email: form.email,
         phone: form.phone.replace(/\D/g, ''),
         city: form.city,
         age: form.age,
+        utm_source: utmParams.utm_source,
+        utm_medium: utmParams.utm_medium,
+        utm_campaign: utmParams.utm_campaign,
+        utm_term: utmParams.utm_term,
+        utm_content: utmParams.utm_content,
       }),
     }).catch(console.error);
 

@@ -18,6 +18,11 @@ router.post("/", async (req, res) => {
       razorpay_payment_link_reference_id,
       razorpay_payment_link_status,
       razorpay_signature,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+      utm_term,
+      utm_content,
     } = req.body;
 
     // Verify Razorpay signature if key secret is configured
@@ -35,7 +40,7 @@ router.post("/", async (req, res) => {
       }
     }
 
-    // Save to Google Sheet
+    // Save to Google Sheet (include UTM parameters)
     await axios.post(process.env.GOOGLE_SHEET_URL, {
       name,
       age,
@@ -45,6 +50,11 @@ router.post("/", async (req, res) => {
       profession,
       txnid: razorpay_payment_id,
       amount: "99",
+      utm_source: utm_source || "",
+      utm_medium: utm_medium || "",
+      utm_campaign: utm_campaign || "",
+      utm_term: utm_term || "",
+      utm_content: utm_content || "",
     });
 
     return res.json({ success: true });

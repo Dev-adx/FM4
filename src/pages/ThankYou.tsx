@@ -7,6 +7,8 @@ import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 const GOOGLE_SHEET_URL =
   "https://script.google.com/macros/s/AKfycbwtED-c_bRnvFaX4bUZrNOvaySenKN-asZRJtFRo-P21XbexUKqqzY2w-T_us0YXlVi/exec";
 
+const BACKEND_URL = "https://fm4.onrender.com";
+
 const ThankYou = () => {
   const { config } = useWorkshopConfig();
   const [confetti] = useState(true);
@@ -14,11 +16,20 @@ const ThankYou = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get("razorpay_payment_id");
-    const paymentLinkStatus = params.get("razorpay_payment_link_status");
+    const paymentLinkStatus = params.get("payment_link_status");
 
     if (paymentId && paymentLinkStatus === "paid") {
       const saved = localStorage.getItem("lastRegistration");
       const formData = saved ? JSON.parse(saved) : {};
+
+      // Extract UTM parameters from localStorage
+      const utmData = {
+        utm_source: formData.utm_source || "",
+        utm_medium: formData.utm_medium || "",
+        utm_campaign: formData.utm_campaign || "",
+        utm_term: formData.utm_term || "",
+        utm_content: formData.utm_content || "",
+      };
 
       // Post directly to Google Sheet — no backend cold start
       fetch(GOOGLE_SHEET_URL, {
@@ -35,6 +46,23 @@ const ThankYou = () => {
           txnid: paymentId,
           amount: "99",
           source: formData.source || "direct",
+          ...utmData,
+        }),
+      }).catch(console.error);
+
+      // Also notify backend (for backup/analytics)
+      fetch(`${BACKEND_URL}/api/razorpay-success`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.fullName || "",
+          email: formData.email || "",
+          phone: formData.phone || "",
+          city: formData.city || "",
+          age: formData.age || "",
+          profession: "",
+          razorpay_payment_id: paymentId,
+          ...utmData,
         }),
       }).catch(console.error);
     }
