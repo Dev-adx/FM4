@@ -18,7 +18,7 @@ const videos = [
 
 const VideoCard = ({ v }: { v: (typeof videos)[0] }) => {
   const videoSrc = v.type === "drive" 
-    ? `https://drive.google.com/file/d/${v.id}/embed`
+    ? `https://drive.google.com/file/d/${v.id}/preview`
     : `https://player.vimeo.com/video/${v.id}?h=${(v as any).hash}&autoplay=1&title=0&byline=0&portrait=0`;
 
   return (
