@@ -18,7 +18,17 @@ const ThankYou = () => {
     const paymentId = params.get("razorpay_payment_id");
     const paymentLinkStatus = params.get("payment_link_status");
 
+    // Fire pixel 917762147387547 PageView on thank-you page
+    if ((window as any).fbq) {
+      (window as any).fbq('init', '917762147387547');
+      (window as any).fbq('trackSingle', '917762147387547', 'PageView');
+    }
+
     if (paymentId && paymentLinkStatus === "paid") {
+      // Fire Purchase event for pixel 917762147387547
+      if ((window as any).fbq) {
+        (window as any).fbq('trackSingle', '917762147387547', 'Purchase', { value: 99, currency: 'INR' });
+      }
       const saved = localStorage.getItem("lastRegistration");
       const formData = saved ? JSON.parse(saved) : {};
 
