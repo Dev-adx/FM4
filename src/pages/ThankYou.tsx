@@ -6,7 +6,7 @@ import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
 const GOOGLE_SHEET_URL =
-  "https://script.google.com/macros/s/AKfycbwtED-c_bRnvFaX4bUZrNOvaySenKN-asZRJtFRo-P21XbexUKqqzY2w-T_us0YXlVi/exec";
+  "https://script.google.com/macros/s/AKfycbw-8ZeUX30P8KkyCMd450FeiCFBID-NNAC12mB903pcmblxV5A2pwRqQsR5RY8_IviBYA/exec";
 
 const BACKEND_URL = "https://fm4.onrender.com";
 
@@ -20,10 +20,12 @@ const ThankYou = () => {
     const paymentId = params.get("razorpay_payment_id");
     const paymentLinkStatus = params.get("payment_link_status");
 
-    // Fire pixel 917762147387547 PageView on thank-you page
+    // Fire pixel PageView on thank-you page
     if ((window as any).fbq) {
       (window as any).fbq('init', '917762147387547');
+      (window as any).fbq('init', '2224378118089593');
       (window as any).fbq('trackSingle', '917762147387547', 'PageView');
+      (window as any).fbq('trackSingle', '2224378118089593', 'PageView');
     }
 
     if (paymentId && paymentLinkStatus === "paid") {
@@ -35,6 +37,14 @@ const ThankYou = () => {
           currency: "INR",
         },
       });
+      
+      // Also fire Purchase event for the new pixel
+      if ((window as any).fbq) {
+        (window as any).fbq('trackSingle', '2224378118089593', 'Purchase', {
+          value: 99,
+          currency: "INR"
+        });
+      }
       
       const saved = localStorage.getItem("lastRegistration");
       const formData = saved ? JSON.parse(saved) : {};

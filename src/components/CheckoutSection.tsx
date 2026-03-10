@@ -97,7 +97,7 @@ if (!form.city.trim()) newErrors.city = "City is required";
 
     // Redirect with prefilled params after short delay to let pixel fire
     // pages.razorpay.com uses full_name and phone (not name/contact)
-const params = new URLSearchParams({
+    const params = new URLSearchParams({
       full_name: form.fullName,
       email: form.email,
       phone: form.phone.replace(/\D/g, ''),
