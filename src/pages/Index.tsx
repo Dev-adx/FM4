@@ -22,7 +22,6 @@ const LoadingFallback = () => (
 );
 
 const Index = () => {
-  const { trackEvent } = useFacebookPixel();
 
   return (
     <main className="min-h-screen">
