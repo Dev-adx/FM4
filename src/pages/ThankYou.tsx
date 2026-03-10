@@ -24,7 +24,7 @@ const ThankYou = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get("razorpay_payment_id");
-    const paymentLinkStatus = params.get("payment_link_status");
+    const paymentLinkStatus = params.get("razorpay_payment_link_status");
 
     // Fire pixel PageView on thank-you page for all pixel IDs
     if ((window as any).fbq) {
