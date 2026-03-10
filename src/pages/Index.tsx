@@ -24,10 +24,6 @@ const LoadingFallback = () => (
 const Index = () => {
   const { trackEvent } = useFacebookPixel();
 
-  useEffect(() => {
-    trackEvent({ eventName: "PageView" });
-  }, []);
-
   return (
     <main className="min-h-screen">
       <HeroSection />
