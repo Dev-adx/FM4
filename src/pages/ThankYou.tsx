@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { FaCalendarAlt, FaClock, FaGlobe, FaWhatsapp } from "react-icons/fa";
 import { GiPartyPopper } from "react-icons/gi";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
-import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
 const GOOGLE_SHEET_URL =
@@ -20,7 +19,6 @@ const PIXEL_IDS = [
 
 const ThankYou = () => {
   const { config } = useWorkshopConfig();
-  const { trackEvent } = useFacebookPixel();
   const [confetti] = useState(true);
 
   useEffect(() => {
@@ -37,12 +35,16 @@ const ThankYou = () => {
     }
 
     if (paymentId && paymentLinkStatus === "paid") {
-      trackEvent({
-        eventName: "Purchase",
-        eventParams: { value: 99, currency: "INR" },
-      });
+      // Fire Purchase event for specific pixel IDs only
+      if ((window as any).fbq) {
+        ['1278108320936716', '2224378118089593'].forEach((pixelId) => {
+          (window as any).fbq('trackSingle', pixelId, 'Purchase', {
+            value: 99,
+            currency: "INR"
+          });
+        });
+      }
 
-      
       const saved = localStorage.getItem("lastRegistration");
       const formData = saved ? JSON.parse(saved) : {};
 
@@ -92,7 +94,7 @@ const ThankYou = () => {
     }
 
     localStorage.removeItem("lastRegistration");
-  }, [trackEvent]);
+  }, []);
 
   const day1 = config.day1_datetime;
   const day2 = config.day2_datetime;
