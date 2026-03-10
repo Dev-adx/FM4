@@ -17,11 +17,6 @@ const PIXEL_IDS = [
   '2224378118089593'
 ];
 
-// Pixel IDs that should receive Purchase event
-const PURCHASE_PIXEL_IDS = [
-  '1278108320936716',
-  '2224378118089593'
-];
 
 const ThankYou = () => {
   const { config } = useWorkshopConfig();
@@ -42,24 +37,11 @@ const ThankYou = () => {
     }
 
     if (paymentId && paymentLinkStatus === "paid") {
-      // Fire Purchase event using useFacebookPixel hook format
       trackEvent({
         eventName: "Purchase",
-        eventParams: {
-          value: 99,
-          currency: "INR",
-        },
+        eventParams: { value: 99, currency: "INR" },
       });
-      
-      // Fire Purchase event for specific pixel IDs only
-      if ((window as any).fbq) {
-        PURCHASE_PIXEL_IDS.forEach((pixelId) => {
-          (window as any).fbq('trackSingle', pixelId, 'Purchase', {
-            value: 99,
-            currency: "INR"
-          });
-        });
-      }
+
       
       const saved = localStorage.getItem("lastRegistration");
       const formData = saved ? JSON.parse(saved) : {};
