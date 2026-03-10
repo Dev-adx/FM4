@@ -3,17 +3,22 @@ import { Calendar, Clock, Video, Globe, Star, Play } from "lucide-react";
 import googleReviews from "@/assets/google.webp";
 import heroImage from "@/assets/Hero.webp";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
+import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
-const CTAButton = ({ text = "Secure Your Seat @ ₹499 ₹99" }: { text?: string }) => (
-  <a
-    href="#checkout"
-    onClick={() => { (window as any).fbq?.('track', 'Subscribe'); }}
-    className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta"
-  >
-    Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
-  </a>
-);
+const CTAButton = ({ text = "Secure Your Seat @ ₹499 ₹99" }: { text?: string }) => {
+  const { trackEvent } = useFacebookPixel();
+  
+  return (
+    <a
+      href="#checkout"
+      onClick={() => { trackEvent({ eventName: "AddToCart", eventParams: { value: 99, currency: "INR" } }); }}
+      className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta"
+    >
+      Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
+    </a>
+  );
+};
 
 const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
