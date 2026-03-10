@@ -100,7 +100,10 @@ if (!form.city.trim()) newErrors.city = "City is required";
     // Track Facebook pixel - InitiateCheckout for all pixel IDs (form CTA)
     if ((window as any).fbq) {
       PIXEL_IDS.forEach((pixelId) => {
-        (window as any).fbq('trackSingle', pixelId, 'InitiateCheckout');
+        (window as any).fbq('trackSingle', pixelId, 'InitiateCheckout', {
+          value: 99,
+          currency: "INR"
+        });
       });
     }
 

@@ -18,15 +18,8 @@ const PIXEL_IDS = [
   '2224378118089593'
 ];
 
-// Events that should only fire once per page session
-const ONCE_PER_SESSION_EVENTS = new Set(['AddToCart', 'PageView']);
-const firedEvents = new Set<string>();
-
 export function useFacebookPixel() {
   const trackEvent = useCallback(({ eventName, eventParams }: FacebookPixelEvent) => {
-    if (ONCE_PER_SESSION_EVENTS.has(eventName) && firedEvents.has(eventName)) return;
-    if (ONCE_PER_SESSION_EVENTS.has(eventName)) firedEvents.add(eventName);
-
     if ((window as any).fbq) {
       PIXEL_IDS.forEach((pixelId) => {
         (window as any).fbq('trackSingle', pixelId, eventName, eventParams);
