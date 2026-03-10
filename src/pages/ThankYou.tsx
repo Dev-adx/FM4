@@ -16,19 +16,18 @@ const ThankYou = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get("razorpay_payment_id");
-    const paymentLinkStatus = params.get("razorpay_payment_link_status");
 
-    if (paymentId && paymentLinkStatus === "paid") {
-      // Fire Purchase event for specific pixel IDs only
-      if ((window as any).fbq) {
-        ['1278108320936716', '2224378118089593'].forEach((pixelId) => {
-          (window as any).fbq('trackSingle', pixelId, 'Purchase', {
-            value: 99,
-            currency: "INR"
-          });
+    // Fire Purchase event for specific pixel IDs on every thank-you page load
+    if ((window as any).fbq) {
+      ['1278108320936716', '2224378118089593'].forEach((pixelId) => {
+        (window as any).fbq('trackSingle', pixelId, 'Purchase', {
+          value: 99,
+          currency: "INR"
         });
-      }
+      });
+    }
 
+    if (paymentId) {
       const saved = localStorage.getItem("lastRegistration");
       const formData = saved ? JSON.parse(saved) : {};
 
