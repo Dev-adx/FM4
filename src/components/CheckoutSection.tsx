@@ -4,6 +4,13 @@ import { Shield, Lock } from "lucide-react";
 const BACKEND_URL = "https://fm4.onrender.com";
 const RAZORPAY_PAYMENT_LINK = "https://pages.razorpay.com/pl_SNdaFjyAcdeV7O/view";
 
+// All active pixel IDs
+const PIXEL_IDS = [
+  '945210531500711',
+  '1278108320936716',
+  '2224378118089593'
+];
+
 const CheckoutSection = () => {
 const [form, setForm] = useState({
     fullName: "", email: "", city: "", phone: "", age: "",
@@ -90,9 +97,12 @@ if (!form.city.trim()) newErrors.city = "City is required";
       }),
     }).catch(console.error);
 
-    // Track Facebook pixel
+    // Track Facebook pixel - InitiateCheckout for all pixel IDs (form CTA)
     if ((window as any).fbq) {
       (window as any).fbq('track', 'InitiateCheckout');
+      PIXEL_IDS.forEach((pixelId) => {
+        (window as any).fbq('trackSingle', pixelId, 'InitiateCheckout');
+      });
     }
 
     // Redirect with prefilled params after short delay to let pixel fire

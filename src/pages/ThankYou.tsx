@@ -10,6 +10,19 @@ const GOOGLE_SHEET_URL =
 
 const BACKEND_URL = "https://fm4.onrender.com";
 
+// All active pixel IDs for PageView
+const PIXEL_IDS = [
+  '945210531500711',
+  '1278108320936716',
+  '2224378118089593'
+];
+
+// Pixel IDs that should receive Purchase event
+const PURCHASE_PIXEL_IDS = [
+  '1278108320936716',
+  '2224378118089593'
+];
+
 const ThankYou = () => {
   const { config } = useWorkshopConfig();
   const { trackEvent } = useFacebookPixel();
@@ -20,12 +33,12 @@ const ThankYou = () => {
     const paymentId = params.get("razorpay_payment_id");
     const paymentLinkStatus = params.get("payment_link_status");
 
-    // Fire pixel PageView on thank-you page
+    // Fire pixel PageView on thank-you page for all pixel IDs
     if ((window as any).fbq) {
-      (window as any).fbq('init', '917762147387547');
-      (window as any).fbq('init', '2224378118089593');
-      (window as any).fbq('trackSingle', '917762147387547', 'PageView');
-      (window as any).fbq('trackSingle', '2224378118089593', 'PageView');
+      PIXEL_IDS.forEach((pixelId) => {
+        (window as any).fbq('init', pixelId);
+        (window as any).fbq('trackSingle', pixelId, 'PageView');
+      });
     }
 
     if (paymentId && paymentLinkStatus === "paid") {
@@ -38,11 +51,13 @@ const ThankYou = () => {
         },
       });
       
-      // Also fire Purchase event for the new pixel
+      // Fire Purchase event for specific pixel IDs only
       if ((window as any).fbq) {
-        (window as any).fbq('trackSingle', '2224378118089593', 'Purchase', {
-          value: 99,
-          currency: "INR"
+        PURCHASE_PIXEL_IDS.forEach((pixelId) => {
+          (window as any).fbq('trackSingle', pixelId, 'Purchase', {
+            value: 99,
+            currency: "INR"
+          });
         });
       }
       
