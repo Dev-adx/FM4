@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
 import { useFacebookPixel } from "@/hooks/useFacebookPixel";
@@ -22,6 +22,11 @@ const LoadingFallback = () => (
 );
 
 const Index = () => {
+  const { trackEvent } = useFacebookPixel();
+
+  useEffect(() => {
+    trackEvent({ eventName: "PageView" });
+  }, []);
 
   return (
     <main className="min-h-screen">
