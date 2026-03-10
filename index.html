@@ -16,14 +16,10 @@
       n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
       s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
       (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      // Skip pixel initialization on Thank You page
-      var currentPath = window.location.pathname;
-      if (!currentPath.includes('thank-you') && !currentPath.includes('thankyou')) {
-        fbq('init','945210531500711');
-        fbq('init','1278108320936716');
-        fbq('init','2224378118089593');
-        fbq('track','PageView');
-      }
+      fbq('init','945210531500711');
+      fbq('init','1278108320936716');
+      fbq('init','2224378118089593');
+      fbq('track','PageView');
     </script>
     <!-- End Meta Pixel Base Code -->
 

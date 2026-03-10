@@ -19,7 +19,7 @@ const PIXEL_IDS = [
 ];
 
 // Events that should only fire once per page session
-const ONCE_PER_SESSION_EVENTS = new Set(['Subscribe', 'AddToCart']);
+const ONCE_PER_SESSION_EVENTS = new Set(['AddToCart']);
 const firedEvents = new Set<string>();
 
 export function useFacebookPixel() {

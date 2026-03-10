@@ -9,14 +9,6 @@ const GOOGLE_SHEET_URL =
 
 const BACKEND_URL = "https://fm4.onrender.com";
 
-// All active pixel IDs for PageView
-const PIXEL_IDS = [
-  '945210531500711',
-  '1278108320936716',
-  '2224378118089593'
-];
-
-
 const ThankYou = () => {
   const { config } = useWorkshopConfig();
   const [confetti] = useState(true);
@@ -25,14 +17,6 @@ const ThankYou = () => {
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get("razorpay_payment_id");
     const paymentLinkStatus = params.get("razorpay_payment_link_status");
-
-    // Fire pixel PageView on thank-you page for all pixel IDs
-    if ((window as any).fbq) {
-      PIXEL_IDS.forEach((pixelId) => {
-        (window as any).fbq('init', pixelId);
-        (window as any).fbq('trackSingle', pixelId, 'PageView');
-      });
-    }
 
     if (paymentId && paymentLinkStatus === "paid") {
       // Fire Purchase event for specific pixel IDs only
