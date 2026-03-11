@@ -10,6 +10,7 @@ const VideoReviewsSection = lazy(() => import("@/components/VideoReviewsSection"
 const WorkshopStepsSection = lazy(() => import("@/components/WorkshopStepsSection"));
 const AudienceSection = lazy(() => import("@/components/AudienceSection"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
+const BonusSection = lazy(() => import("@/components/BonusSection"));
 const ReviewsSection = lazy(() => import("@/components/ReviewsSection"));
 const CheckoutSection = lazy(() => import("@/components/CheckoutSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
@@ -35,6 +36,7 @@ const Index = () => {
         <WorkshopStepsSection />
         <AudienceSection />
         <AboutSection />
+        <BonusSection />
         <ReviewsSection />
         <CheckoutSection />
         <FAQSection />
