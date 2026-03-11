@@ -41,7 +41,7 @@ const WorkshopStepsSection = () => {
   const { trackEventAllPixels } = useFacebookPixel();
 
   return (
-  <section className="bg-section-green py-14">
+  <section className="bg-section-green py-8">
     <div className="container max-w-4xl">
       <h2 className="text-2xl md:text-4xl font-heading font-bold text-center mb-3">
         What will we cover in the <span className="text-primary">Workshop?</span>

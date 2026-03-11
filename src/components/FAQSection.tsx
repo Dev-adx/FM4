@@ -14,7 +14,7 @@ const FAQSection = () => {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="py-14" style={{ backgroundColor: "#3d5a6e" }}>
+    <section className="py-8" style={{ backgroundColor: "#3d5a6e" }}>
       <div className="container max-w-5xl">
         <div className="grid md:grid-cols-[300px_1fr] gap-12 items-start">
           {/* Left: heading */}

@@ -4,7 +4,7 @@ const FooterSection = () => (
     <div className="h-1 bg-primary" />
 
     {/* Disclaimer content */}
-    <div className="container max-w-5xl py-10 space-y-5 text-muted-foreground text-sm leading-relaxed">
+    <div className="container max-w-5xl py-8 space-y-5 text-muted-foreground text-sm leading-relaxed">
       <p>
         Disclaimer: FM4 Therapy is a lifestyle and movement-based pain management approach. It does not replace professional medical advice, diagnosis, or treatment. Individual results may vary. Always consult your physician before starting any physical program.
       </p>

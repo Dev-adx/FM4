@@ -5,7 +5,7 @@ const BigQuestionSection = () => {
   const { trackEventAllPixels } = useFacebookPixel();
   
   return (
-  <section className="bg-plus-pattern py-14">
+  <section className="bg-plus-pattern py-8">
     <div className="container max-w-3xl text-center">
       <h2 className="text-2xl md:text-4xl font-heading font-bold mb-3">
         The Big Question is

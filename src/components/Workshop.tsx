@@ -10,7 +10,7 @@ const painPoints = [
 ];
 
 const PainPointsSection = () => (
-  <section id="workshop" className="bg-section-white pt-10 pb-8">
+  <section id="workshop" className="bg-section-white pt-6 pb-6">
     <div className="container max-w-5xl">
       <h2 className="text-2xl md:text-4xl font-heading font-bold text-center mb-10">
         Are You Struggling To{" "}
@@ -18,7 +18,7 @@ const PainPointsSection = () => (
       </h2>
 
       {/* ── Desktop layout ── */}
-      <div className="hidden md:flex items-center gap-0 mb-10">
+      <div className="hidden md:flex items-center gap-0 mb-6">
         {/* Image with green ring */}
         <div className="flex-shrink-0 flex items-center justify-center" style={{ width: "300px" }}>
           <div className="w-64 h-64 rounded-full overflow-hidden shadow-xl"
@@ -52,7 +52,7 @@ const PainPointsSection = () => (
       </div>
 
       {/* ── Mobile layout ── */}
-      <div className="md:hidden flex flex-col items-center gap-6 mb-10">
+      <div className="md:hidden flex flex-col items-center gap-6 mb-6">
         {/* Image with green ring */}
         <div
           className="w-44 h-44 rounded-full overflow-hidden shadow-xl"

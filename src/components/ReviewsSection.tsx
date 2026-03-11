@@ -71,7 +71,7 @@ const ReviewsSection = () => {
   };
 
   return (
-    <section className="bg-section-white pt-8 pb-10">
+    <section className="bg-section-white pt-6 pb-6">
       <div className="container max-w-5xl">
         {/* Header */}
         <div className="text-center mb-10">

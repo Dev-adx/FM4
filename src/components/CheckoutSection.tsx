@@ -123,7 +123,7 @@ if (!form.city.trim()) newErrors.city = "City is required";
   };
 
   return (
-    <section id="checkout" className="bg-section-green py-14">
+    <section id="checkout" className="bg-section-green py-8">
       <div className="container max-w-2xl">
         <h2 className="text-2xl md:text-4xl font-heading font-bold text-center mb-8">
           Book FM4 Workshop

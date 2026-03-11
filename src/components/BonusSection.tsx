@@ -2,7 +2,7 @@ import bonusImg from "@/assets/Bonus.webp";
 
 const BonusSection = () => {
   return (
-    <section className="bg-section-white pt-8 pb-8">
+    <section className="bg-section-white pt-6 pb-6">
       <div className="container max-w-4xl">
         <h2 className="text-2xl md:text-4xl font-heading font-bold text-center mb-8">
           Exclusive <span className="text-primary">Bonus</span>

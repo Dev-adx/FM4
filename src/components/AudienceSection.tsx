@@ -8,7 +8,7 @@ const audiences = [
 ];
 
 const AudienceSection = () => (
-  <section className="py-14" style={{ backgroundColor: "#3d5a6e" }}>
+  <section className="py-8" style={{ backgroundColor: "#3d5a6e" }}>
     <div className="container max-w-4xl">
       <h2 className="text-2xl md:text-4xl font-heading font-bold text-center text-white mb-10">
         Who is this Workshop for?
