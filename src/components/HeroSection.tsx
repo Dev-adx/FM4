@@ -7,13 +7,13 @@ import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
 const CTAButton = ({ text = "Secure Your Seat @ ₹499 ₹99" }: { text?: string }) => {
-  const { trackEvent } = useFacebookPixel();
+  const { trackEventAllPixels } = useFacebookPixel();
   
   return (
     <a
       href="#checkout"
       onClick={() => {
-        trackEvent({ eventName: "AddToCart", eventParams: { value: 99, currency: "INR" } });
+        trackEventAllPixels({ eventName: "Subscribe", eventParams: { value: 99, currency: "INR" } });
       }}
       className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta"
     >
@@ -51,7 +51,9 @@ const HeroSection = () => {
             for Long-Term Relief
           </h1>
           <p className="text-lg md:text-xl underline font-bold">
-            Without any Medicines, Surgeries, Physio, Chiro, or Oil Massages
+            <a href="#workshop" className="hover:text-primary transition-colors">
+              Without any Medicines, Surgeries, Physio, Chiro, or Oil Massages
+            </a>
           </p>
         </div>
 

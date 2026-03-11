@@ -97,10 +97,10 @@ if (!form.city.trim()) newErrors.city = "City is required";
       }),
     }).catch(console.error);
 
-    // Track Facebook pixel - InitiateCheckout for all pixel IDs (form CTA)
+    // Track Facebook pixel - AddToCart for all pixel IDs (form CTA)
     if ((window as any).fbq) {
       PIXEL_IDS.forEach((pixelId) => {
-        (window as any).fbq('trackSingle', pixelId, 'InitiateCheckout', {
+        (window as any).fbq('trackSingle', pixelId, 'AddToCart', {
           value: 99,
           currency: "INR"
         });

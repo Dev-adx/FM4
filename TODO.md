@@ -1,18 +1,37 @@
-# Task: Integrate Google Sheets Web App URL
+# TODO: Facebook Pixel Event Updates
 
-## Task Understanding
-- Web App URL: `https://script.google.com/macros/s/AKfycbw-8ZeUX30P8KkyCMd450FeiCFBID-NNAC12mB903pcmblxV5A2pwRqQsR5RY8_IviBYA/exec?gid=1429279410`
-- Purpose: Send user registration data to Google Sheets
+## Task
+- Add Subscribe event to all CTAs (replace AddToCart)
+- Remove InitiateCheckout from form CTA and add AddToCart for all pixel IDs
 
-## Implementation Plan
+## Files to Edit:
 
-### Step 1: Update CheckoutSection.tsx ✅
-- Added Google Apps Script integration to send form data to the new URL
-- Data is sent on form submission (before payment redirect)
-- Includes all form fields: name, email, phone, city, age, source, and UTM parameters
+### 1. src/pages/Index.tsx
+- [x] Change AddToCart to Subscribe for all 3 pixel IDs
 
-### Step 2: Verify integration works ✅
-- Using no-cors mode (like existing ThankYou.tsx implementation)
+### 2. src/components/HeroSection.tsx
+- [x] Change AddToCart to Subscribe for all 3 pixel IDs
 
-## Status: Completed ✅
+### 3. src/components/Workshop.tsx
+- [x] Change AddToCart to Subscribe for all 3 pixel IDs
+
+### 4. src/components/BigQuestionSection.tsx
+- [x] Change AddToCart to Subscribe for all 3 pixel IDs
+
+### 5. src/components/WorkshopStepsSection.tsx
+- [x] Change AddToCart to Subscribe for all 3 pixel IDs
+
+### 6. src/components/AboutSection.tsx
+- [x] Change AddToCart to Subscribe for all 3 pixel IDs
+
+### 7. src/components/CheckoutSection.tsx
+- [x] Remove InitiateCheckout tracking
+- [x] Add AddToCart for all 3 pixel IDs
+
+## Pixel IDs:
+- 945210531500711
+- 1278108320936716
+- 2224378118089593
+
+## Status: COMPLETED ✓
 

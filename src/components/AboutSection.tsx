@@ -10,7 +10,7 @@ const images = [celebrity1, celebrity2, celebrity3];
 const AboutSection = () => {
   const [active, setActive] = useState(0);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const { trackEvent } = useFacebookPixel();
+  const { trackEventAllPixels } = useFacebookPixel();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -128,7 +128,7 @@ const AboutSection = () => {
         <a
           href="#checkout"
           onClick={() => {
-            trackEvent({ eventName: "AddToCart", eventParams: { value: 99, currency: "INR" } });
+            trackEventAllPixels({ eventName: "Subscribe", eventParams: { value: 99, currency: "INR" } });
           }}
           className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta"
         >

@@ -10,7 +10,7 @@ const painPoints = [
 ];
 
 const PainPointsSection = () => (
-  <section className="bg-section-white pt-10 pb-8">
+  <section id="workshop" className="bg-section-white pt-10 pb-8">
     <div className="container max-w-5xl">
       <h2 className="text-2xl md:text-4xl font-heading font-bold text-center mb-10">
         Are You Struggling To{" "}
@@ -89,12 +89,12 @@ const PainPointsSection = () => (
 
       {/* CTA with strikethrough price */}
       {(() => {
-        const { trackEvent } = useFacebookPixel();
+        const { trackEventAllPixels } = useFacebookPixel();
         return (
-          <a
-            href="#checkout"
-            onClick={() => { trackEvent({ eventName: "AddToCart", eventParams: { value: 99, currency: "INR" } }); }}
-            className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta"
+            <a
+              href="#checkout"
+              onClick={() => { trackEventAllPixels({ eventName: "Subscribe", eventParams: { value: 99, currency: "INR" } }); }}
+              className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta"
           >
             Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
           </a>
