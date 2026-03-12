@@ -17,9 +17,9 @@ const ThankYou = () => {
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get("razorpay_payment_id");
 
-    // Fire PageView and Purchase events for all pixel IDs on every thank-you page load
+    // Fire Purchase event for specific pixel IDs on every thank-you page load
     if ((window as any).fbq) {
-      ['945210531500711', '1278108320936716', '2224378118089593'].forEach((pixelId) => {
+      ['1278108320936716', '2224378118089593'].forEach((pixelId) => {
         (window as any).fbq('trackSingle', pixelId, 'Purchase', {
           value: 99,
           currency: "INR"
