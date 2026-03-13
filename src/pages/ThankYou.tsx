@@ -1,8 +1,5 @@
-import { useState, useEffect } from "react";
-import { FaCalendarAlt, FaClock, FaGlobe, FaWhatsapp } from "react-icons/fa";
-import { GiPartyPopper } from "react-icons/gi";
+import { useEffect } from "react";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
-import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
 const GOOGLE_SHEET_URL =
   "https://script.google.com/macros/s/AKfycbw-8ZeUX30P8KkyCMd450FeiCFBID-NNAC12mB903pcmblxV5A2pwRqQsR5RY8_IviBYA/exec";
@@ -11,8 +8,6 @@ const BACKEND_URL = "https://fm4.onrender.com";
 
 const ThankYou = () => {
   const { config } = useWorkshopConfig();
-  const [confetti] = useState(true);
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get("razorpay_payment_id");
@@ -79,67 +74,39 @@ const ThankYou = () => {
     localStorage.removeItem("lastRegistration");
   }, []);
 
-  const day1 = config.day1_datetime;
-  const day2 = config.day2_datetime;
   const whatsappLink = config.whatsapp_link;
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
-      <div className="max-w-lg w-full text-center">
+    <div className="min-h-screen bg-plus-pattern flex items-center justify-center px-4">
+      <div className="max-w-2xl w-full text-center py-16">
 
-        {confetti && (
-          <div className="flex justify-center mb-6 animate-fade-in">
-            <GiPartyPopper className="text-6xl text-primary" />
-          </div>
-        )}
+        <p className="text-base font-semibold mb-4">Woohoo! 🎉</p>
 
-        <h1 className="text-3xl md:text-4xl font-black mb-4">
-          <span className="text-gradient bg-clip-text text-fill-transparent bg-gradient-to-r from-primary to-green-600">Thank You!</span>
+        <h1 className="text-3xl md:text-5xl font-heading font-black text-foreground mb-6">
+          You have Successfully Registered!
         </h1>
 
-        <p className="text-lg font-semibold mb-2">
-          Aapki Seat Successfully Book Ho Gayi Hai!
+        <h2 className="text-2xl md:text-5xl font-heading font-black text-primary mb-6">
+          Just 1 More Step Remaining
+        </h2>
+
+        <p className="text-base md:text-lg mb-4">
+          <span className="text-red-500 font-bold">Caution:</span>{" "}
+          This Step is very important so that you Do Not Miss Out on the Session!
         </p>
 
-        <p className="text-muted-foreground mb-8">
-          Workshop details aapke email pe bhej diye jayenge.
+        <p className="text-base md:text-lg font-bold mb-8">
+          Join the Exclusive Announcement Community{" "}
+          <span className="text-primary font-bold">to get notified for everything</span>
         </p>
 
-        {/* Workshop Details */}
-        <div className="card-gradient border border-primary/30 rounded-2xl p-6 shadow-glow mb-8 text-left space-y-4">
-
-          <div className="flex items-center gap-3">
-            <FaCalendarAlt className="text-primary text-lg" />
-            <span className="text-sm">
-              {formatDateWithSuffix(day1)} & {formatDateWithSuffix(day2)}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <FaClock className="text-primary text-lg" />
-            <span className="text-sm">
-              Day 1: {formatTime(day1)} | Day 2: {formatTime(day2)}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <FaGlobe className="text-primary text-lg" />
-            <span className="text-sm">
-              Online Live Workshop (Hindi & English)
-            </span>
-          </div>
-
-        </div>
-
-        {/* WhatsApp Button */}
         <a
           href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-gradient-primary text-primary-foreground font-bold px-8 py-3 rounded-xl shadow-glow hover:scale-105 transition-transform"
+          className="block w-full max-w-xl mx-auto bg-yellow-400 hover:bg-yellow-500 text-black font-heading font-bold text-lg md:text-xl py-3 px-8 rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
         >
-          <FaWhatsapp />
-          Whatsapp Group Join Karein →
+          Click Here to Join Our Community Now
         </a>
 
       </div>

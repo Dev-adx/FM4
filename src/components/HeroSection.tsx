@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { Calendar, Clock, Video, Globe, Star, Play } from "lucide-react";
+import { Calendar, Clock, Video, Globe } from "lucide-react";
 import googleReviews from "@/assets/google.webp";
-import heroImage from "@/assets/Hero.webp";
+
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { useFacebookPixel } from "@/hooks/useFacebookPixel";
-import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
+import { formatDayOnly, formatTime } from "@/utils/dateHelpers";
+import { parseISO, format } from "date-fns";
+
 
 const CTAButton = ({ text = "Secure Your Seat @ ₹499 ₹99" }: { text?: string }) => {
   const { trackEventAllPixels } = useFacebookPixel();
@@ -15,7 +16,7 @@ const CTAButton = ({ text = "Secure Your Seat @ ₹499 ₹99" }: { text?: string
       onClick={() => {
         trackEventAllPixels({ eventName: "Subscribe", eventParams: { value: 99, currency: "INR" } });
       }}
-      className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta"
+className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta hover:scale-105 hover:shadow-xl animate-cta-bounce group"
     >
       Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
     </a>
@@ -23,12 +24,12 @@ const CTAButton = ({ text = "Secure Your Seat @ ₹499 ₹99" }: { text?: string
 };
 
 const HeroSection = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+
   const { config } = useWorkshopConfig();
 
   const details = [
-    { icon: Calendar, label: "Date", value: `${formatDateWithSuffix(config.day1_datetime)} & ${formatDateWithSuffix(config.day2_datetime)}` },
-    { icon: Clock, label: "Time", value: `Day 1: ${formatTime(config.day1_datetime)}\nDay 2: ${formatTime(config.day2_datetime)}` },
+    { icon: Calendar, label: "Date", value: `${formatDayOnly(config.day1_datetime)}, ${formatDayOnly(config.day2_datetime)} ${format(parseISO(config.day1_datetime || new Date().toISOString()), "MMM")}` },
+    { icon: Clock, label: "Time", value: `${formatDayOnly(config.day1_datetime)} - ${formatTime(config.day1_datetime)}\n${formatDayOnly(config.day2_datetime)} - ${formatTime(config.day2_datetime)}` },
     { icon: Video, label: "Live Workshop", value: "2 Days" },
     { icon: Globe, label: "Language", value: "Hindi & English" },
   ];
@@ -68,37 +69,15 @@ const HeroSection = () => {
           <div className="relative rounded-2xl overflow-hidden shadow-lg">
             <div className="relative" style={{ paddingTop: '56.25%' }}>
               {/* Cover Image with Play Button or Video Player */}
-              <div className="absolute top-0 left-0 w-full h-full bg-black">
-                {isPlaying ? (
-                  <iframe 
-                    src="https://www.youtube.com/embed/9VoVN6gfhxg?si=kZ9eWJRdu5st253L&autoplay=1"
+              <iframe 
+                    src="https://www.youtube.com/embed/9VoVN6gfhxg?autoplay=1&mute=1&si=kZ9eWJRdu5st253L"
                     className="absolute top-0 left-0 w-full h-full"
                     frameBorder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
                     allowFullScreen
-                    title="Wellness Workshop Video"
+                    loading="lazy"
+                    title="Wellness Workshop Video - Autoplay"
                   ></iframe>
-                ) : (
-                  <>
-                    <img
-                      src={heroImage}
-                      alt="Wellness Workshop"
-                      width={800}
-                      height={450}
-                      className="w-full h-full object-cover"
-                      fetchPriority="high"
-                    />
-                    {/* Play Button Overlay */}
-                    <button
-                      onClick={() => setIsPlaying(true)}
-                      aria-label="Play workshop video"
-                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors cursor-pointer"
-                    >
-                      <Play className="text-primary ml-1" size={32} />
-                    </button>
-                  </>
-                )}
-              </div>
             </div>
           </div>
 
@@ -107,8 +86,8 @@ const HeroSection = () => {
             <div className="grid grid-cols-2 gap-4">
               {details.map((d) => (
                 <div key={d.label} className="bg-card rounded-2xl shadow-sm border flex items-start gap-3 p-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <d.icon className="text-primary" size={20} />
+                  <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
+                    <d.icon className="text-white" size={20} />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground font-medium">{d.label}</p>

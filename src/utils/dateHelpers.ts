@@ -1,5 +1,13 @@
 import { format, parseISO } from "date-fns";
 
+export function formatDayOnly(dateString: string): string {
+  if (!dateString) return "TBD";
+  const date = parseISO(dateString);
+  const day = date.getDate();
+  const suffix = getOrdinalSuffix(day);
+  return `${day}${suffix}`;
+}
+
 export function formatDateWithSuffix(dateString: string): string {
   if (!dateString) return "TBD";
   const date = parseISO(dateString);

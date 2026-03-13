@@ -44,7 +44,7 @@ const Index = () => {
       </Suspense>
 
       {/* Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-2 md:p-3 bg-card/95 backdrop-blur border-t">
+     {/* <div className="fixed bottom-0 left-0 right-0 z-50 p-2 md:p-3 bg-card/95 backdrop-blur border-t">
         <a
           href="#checkout"
           onClick={() => { trackEventAllPixels({ eventName: "Subscribe", eventParams: { value: 99, currency: "INR" } }); }}
@@ -52,7 +52,7 @@ const Index = () => {
         >
           Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
         </a>
-      </div>
+      </div>*/}
     </main>
   );
 };

@@ -217,7 +217,7 @@ if (!form.city.trim()) newErrors.city = "City is required";
               type="submit"
               className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta flex items-center justify-center gap-2"
             >
-              Book your Seat — ₹99.00
+              Place Your Order — ₹99.00
             </button>
 
             <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm">
