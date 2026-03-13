@@ -28,7 +28,7 @@ const FooterSection = () => (
     </div>
 
     {/* Bottom copyright bar */}
-    <div className="border-t border-gray-200 mb-20">
+    <div className="border-t border-gray-200">
       <div className="container max-w-5xl py-2 text-center text-sm text-muted-foreground">
         Copyright © 2025 Fitness Master. All rights reserved.&nbsp;
         <a href="/refund-policy" className="underline hover:text-primary">Refund Policy</a>
