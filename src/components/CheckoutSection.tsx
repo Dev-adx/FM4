@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Shield, Lock } from "lucide-react";
+import CheckoutButton from "./CheckoutButton";
+import { trackAddToCart, trackFormSubmit } from "@/utils/gtm";
+import { CURRENCY_SYMBOL, DISCOUNTED_PRICE, OG_PRICE, PRODUCT } from "@/utils/product-info";
 
 const BACKEND_URL = "https://fm4.onrender.com";
 const RAZORPAY_PAYMENT_LINK = "https://pages.razorpay.com/pl_SNdaFjyAcdeV7O/view";
@@ -54,6 +57,19 @@ if (!form.city.trim()) newErrors.city = "City is required";
     e.preventDefault();
 
     if (!validateForm()) return;
+
+    trackFormSubmit({
+        formName: "CheckoutForm",
+        formData: {
+          fullName: form.fullName,
+          email: form.email,
+          phone: form.phone,
+          city: form.city,
+          age: form.age,
+        }
+      });
+
+      trackAddToCart(PRODUCT); 
 
     // Capture all UTM parameters from URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -202,23 +218,25 @@ if (!form.city.trim()) newErrors.city = "City is required";
               <h3 className="font-heading font-bold mb-3">Order Summary</h3>
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm">Ticket for Pain Free with FM4 Workshop × 1</span>
-                <span className="font-bold">₹99.00</span>
+                <span className="font-bold">{CURRENCY_SYMBOL}{DISCOUNTED_PRICE.toFixed(2)}</span>
               </div>
               <div className="border-t pt-2 flex justify-between items-center">
                 <span className="font-heading font-bold">Total</span>
                 <div className="text-right">
-                  <span className="line-through text-muted-foreground text-sm mr-2">₹499.00</span>
-                  <span className="font-heading font-bold text-xl text-primary">₹99.00</span>
+                  <span className="line-through text-muted-foreground text-sm mr-2">{CURRENCY_SYMBOL}{OG_PRICE.toFixed(2)}</span>
+                  <span className="font-heading font-bold text-xl text-primary">{CURRENCY_SYMBOL}{DISCOUNTED_PRICE.toFixed(2)}</span>
                 </div>
               </div>
             </div>
 
-            <button
+            {/* <button
               type="submit"
               className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta flex items-center justify-center gap-2"
             >
               Place Your Order — ₹99.00
-            </button>
+            </button> */}
+
+            <CheckoutButton label="Place Your Order — " ctaLocation="CheckoutSection"/>
 
             <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm">
               <Lock size={14} />

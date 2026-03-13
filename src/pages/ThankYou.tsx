@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
+import { trackPurchase } from "@/utils/gtm";
+import { ORDER } from "@/utils/product-info";
 
 const GOOGLE_SHEET_URL =
   "https://script.google.com/macros/s/AKfycbw-8ZeUX30P8KkyCMd450FeiCFBID-NNAC12mB903pcmblxV5A2pwRqQsR5RY8_IviBYA/exec";
@@ -13,6 +15,16 @@ const ThankYou = () => {
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get("razorpay_payment_id");
 
+      const alreadyTracked = localStorage.getItem(`tracked_${paymentId}`);
+      if (alreadyTracked) return;
+
+      trackPurchase({
+      ...ORDER,
+      transaction_id: paymentId || `txn_${Date.now()}`,
+    })
+
+    localStorage.setItem(`tracked_${paymentId}`, "true");
+
     // Fire Purchase event for specific pixel IDs on every thank-you page load
     if ((window as any).fbq) {
       ['945210531500711', '1278108320936716', '2224378118089593'].forEach((pixelId) => {
@@ -22,7 +34,7 @@ const ThankYou = () => {
         });
       });
     }
-
+    
     if (paymentId) {
       const saved = localStorage.getItem("lastRegistration");
       const formData = saved ? JSON.parse(saved) : {};
@@ -73,6 +85,7 @@ const ThankYou = () => {
     }
 
     localStorage.removeItem("lastRegistration");
+    
   }, []);
 
   const whatsappLink = config.whatsapp_link;

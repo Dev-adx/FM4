@@ -5,6 +5,8 @@ import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import { formatDayOnly, formatTime } from "@/utils/dateHelpers";
 import { parseISO, format } from "date-fns";
+import SubscribeButton from "./SubscribeButton";
+import { CURRENCY_SYMBOL, DISCOUNTED_PRICE, OG_PRICE } from "@/utils/product-info";
 
 
 const CTAButton = ({ text = "Secure Your Seat @ ₹499 ₹99" }: { text?: string }) => {
@@ -18,7 +20,7 @@ const CTAButton = ({ text = "Secure Your Seat @ ₹499 ₹99" }: { text?: string
       }}
 className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta hover:scale-105 hover:shadow-xl animate-cta-bounce group"
     >
-      Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
+      Secure Your Seat @ <span className="line-through opacity-70">{CURRENCY_SYMBOL}{OG_PRICE.toFixed(2)}</span> {CURRENCY_SYMBOL}{DISCOUNTED_PRICE.toFixed(2)}
     </a>
   );
 };
@@ -97,7 +99,7 @@ const HeroSection = () => {
               ))}
             </div>
 
-            <CTAButton />
+            <SubscribeButton ctaLocation="HeroSection" />
 
             <p className="text-center font-heading font-bold text-sm">
               🔥 Last <span className="bg-primary text-primary-foreground px-2 py-0.5 rounded-xl">43</span> Seats Left — Booking Closes Once Full!

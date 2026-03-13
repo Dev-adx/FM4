@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import painImage from "@/assets/pain.webp";
 import { useFacebookPixel } from "@/hooks/useFacebookPixel";
+import SubscribeButton from "./SubscribeButton";
 
 const painPoints = [
   <>Is your <span className="text-primary font-bold">chronic pain</span> affecting your <span className="text-primary font-bold">personal &amp; professional</span> life that's making you scared about your future?</>,
@@ -88,7 +89,7 @@ const PainPointsSection = () => (
       </div>
 
       {/* CTA with strikethrough price */}
-      {(() => {
+      {/* {(() => {
         const { trackEventAllPixels } = useFacebookPixel();
         return (
             <a
@@ -99,7 +100,10 @@ className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-fore
             Secure Your Seat @ <span className="line-through opacity-70">₹499</span> ₹99
           </a>
         );
-      })()}
+      })()} */}
+
+      <SubscribeButton ctaLocation="Workshop"/>
+
     </div>
   </section>
 );
