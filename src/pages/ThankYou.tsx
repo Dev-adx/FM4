@@ -15,7 +15,7 @@ const ThankYou = () => {
 
     // Fire Purchase event for specific pixel IDs on every thank-you page load
     if ((window as any).fbq) {
-      ['1278108320936716', '2224378118089593'].forEach((pixelId) => {
+      ['945210531500711', '1278108320936716', '2224378118089593'].forEach((pixelId) => {
         (window as any).fbq('trackSingle', pixelId, 'Purchase', {
           value: 99,
           currency: "INR"
@@ -108,7 +108,7 @@ const ThankYou = () => {
           rel="noopener noreferrer"
           className="block w-full max-w-xl mx-auto bg-yellow-400 hover:bg-yellow-500 text-black font-heading font-bold text-lg md:text-xl py-3 px-8 rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
         >
-          <FaWhatsapp className="inline mr-2 text-xl" />Click Here to Join Our Community Now
+          <FaWhatsapp className="inline mr-2 text-xl" />Click Here to Join Our WhatsApp Community Now
         </a>
 
       </div>
