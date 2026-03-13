@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 
 const GOOGLE_SHEET_URL =
@@ -100,13 +101,14 @@ const ThankYou = () => {
           <span className="text-primary font-bold">to get notified for everything</span>
         </p>
 
+      
         <a
           href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
           className="block w-full max-w-xl mx-auto bg-yellow-400 hover:bg-yellow-500 text-black font-heading font-bold text-lg md:text-xl py-3 px-8 rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
         >
-          Click Here to Join Our Community Now
+          <FaWhatsapp className="inline mr-2 text-xl" />Click Here to Join Our Community Now
         </a>
 
       </div>
