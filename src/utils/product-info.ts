@@ -21,7 +21,9 @@ export const LEAD_SHEET_URL = "https://script.google.com/macros/s/AKfycbxfCJk--p
 
 export const OG_PRICE = 499;
 export const DISCOUNTED_PRICE = 99;
-export const WEBINAR_NAME = "Fitness Master - FB - Green LP2";
+export const WEBINAR_NAME = window.location.hostname.includes("sourobhkulkorni.com")
+  ? import.meta.env.VITE_WEBINAR_NAME_SOUROBH
+  : import.meta.env.VITE_WEBINAR_NAME_FM4;
 export const CURRENCY = "INR";
 export const CURRENCY_SYMBOL = "₹";
 
