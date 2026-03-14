@@ -28,7 +28,7 @@ const CheckoutButton = ({
     <button
         type="submit"
         onClick={handleClick}
-        className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta flex items-center justify-center gap-2"
+        className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-colors shadow-cta flex items-center justify-center gap-2 animate-cta-bounce"
       >
         {label}{price}
       </button>

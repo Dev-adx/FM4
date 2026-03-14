@@ -28,7 +28,7 @@ const SubscribeButton = ({
     <a
       href={href}
       onClick={handleClick}
-      className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-all duration-300 shadow-cta"
+      className="block w-full max-w-lg mx-auto bg-cta hover:bg-cta-hover text-cta-foreground rounded-full py-5 px-8 text-center font-heading font-bold text-xl md:text-2xl transition-colors duration-300 shadow-cta hover:shadow-xl animate-cta-bounce"
     >
       
     <>{label}<span className="line-through opacity-70">{ogPrice}</span>{price}</>

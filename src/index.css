@@ -125,26 +125,31 @@
     will-change: transform;
   }
 
-  @keyframes bounce-cta {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+  .animate-cta-bounce {
+    animation: bounce-cta 0.8s ease-in-out infinite;
+    will-change: transform;
   }
 
   .animate-scroll-left {
     animation: scroll-left 30s linear infinite;
   }
 
-  @keyframes scroll-left {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
   .animate-count-up {
     animation: count-fade 0.5s ease-out;
   }
+}
 
-  @keyframes count-fade {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+@keyframes bounce-cta {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes count-fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
