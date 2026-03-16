@@ -7,11 +7,12 @@ import { CURRENCY_SYMBOL, DISCOUNTED_PRICE, OG_PRICE, PRODUCT } from "@/utils/pr
 const BACKEND_URL = "https://fm4.onrender.com";
 const RAZORPAY_PAYMENT_LINK = "https://pages.razorpay.com/pl_SNdaFjyAcdeV7O/view";
 
-// All active pixel IDs
+// All active pixel IDs (917762147387547 only fires on fm4.co.in)
 const PIXEL_IDS = [
   '945210531500711',
   '1278108320936716',
-  '2224378118089593'
+  '2224378118089593',
+  ...(window.location.hostname.includes('fm4.co.in') ? ['917762147387547'] : []),
 ];
 
 const CheckoutSection = () => {

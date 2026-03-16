@@ -21,6 +21,9 @@ const SubscribeButton = ({
 
   const handleClick = () => {
     trackSubscribe({ label, ctaLocation });
+    if (window.location.hostname.includes('fm4.co.in') && (window as any).fbq) {
+      (window as any).fbq('trackSingle', '917762147387547', 'Subscribe');
+    }
     if (onClick) onClick();
   };
 

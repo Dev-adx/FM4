@@ -1,10 +1,12 @@
 import { useCallback } from 'react';
 
 // All active pixel IDs
+const hostname = window.location.hostname;
 const PIXEL_IDS = [
   '945210531500711',
   '1278108320936716',
-  '2224378118089593'
+  '2224378118089593',
+  ...(hostname.includes('fm4.co.in') ? ['917762147387547'] : []),
 ];
 
 interface EventParams {
