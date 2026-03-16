@@ -15,17 +15,7 @@ const ThankYou = () => {
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get("razorpay_payment_id");
 
-      const alreadyTracked = localStorage.getItem(`tracked_${paymentId}`);
-      if (alreadyTracked) return;
-
-      trackPurchase({
-      ...ORDER,
-      transaction_id: paymentId || `txn_${Date.now()}`,
-    })
-
-    localStorage.setItem(`tracked_${paymentId}`, "true");
-
-    // Fire Purchase event for specific pixel IDs on every thank-you page load
+      // Fire fbq Purchase on every thank-you page visit
     if ((window as any).fbq) {
       ['945210531500711', '1278108320936716', '2224378118089593'].forEach((pixelId) => {
         (window as any).fbq('trackSingle', pixelId, 'Purchase', {
@@ -34,6 +24,17 @@ const ThankYou = () => {
         });
       });
     }
+
+    if (paymentId) {
+      const alreadyTracked = localStorage.getItem(`tracked_${paymentId}`);
+      if (alreadyTracked) return;
+      localStorage.setItem(`tracked_${paymentId}`, "true");
+    }
+
+    trackPurchase({
+      ...ORDER,
+      transaction_id: paymentId || `txn_${Date.now()}`,
+    })
     
     if (paymentId) {
       const saved = localStorage.getItem("lastRegistration");

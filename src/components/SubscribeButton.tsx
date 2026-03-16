@@ -1,4 +1,5 @@
 import { trackSubscribe } from "@/utils/gtm";
+import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import { CURRENCY_SYMBOL, OG_PRICE, DISCOUNTED_PRICE } from "@/utils/product-info";
 interface SubscribeButtonProps {
   ogPrice?: string;
@@ -19,11 +20,11 @@ const SubscribeButton = ({
   onClick,
 }: SubscribeButtonProps) => {
 
+  const { trackEventAllPixels } = useFacebookPixel();
+
   const handleClick = () => {
     trackSubscribe({ label, ctaLocation });
-    if (window.location.hostname.includes('fm4.co.in') && (window as any).fbq) {
-      (window as any).fbq('trackSingle', '917762147387547', 'Subscribe');
-    }
+    trackEventAllPixels({ eventName: "Subscribe", eventParams: { value: 99, currency: "INR" } });
     if (onClick) onClick();
   };
 
