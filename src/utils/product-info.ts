@@ -21,14 +21,12 @@ export const LEAD_SHEET_URL = "https://script.google.com/macros/s/AKfycbxfCJk--p
 
 export const OG_PRICE = 499;
 export const DISCOUNTED_PRICE = 99;
-export const WEBINAR_NAME = window.location.hostname.includes("sourobhkulkorni.com")
-  ? import.meta.env.VITE_WEBINAR_NAME_SOUROBH
-  : import.meta.env.VITE_WEBINAR_NAME_FM4;
+export const WEBINAR_NAME = import.meta.env.VITE_WEBINAR_NAME ?? "Workshop";
 export const CURRENCY = "INR";
 export const CURRENCY_SYMBOL = "₹";
 
 export const PRODUCT : Product = {
-    item_id : 'fm4_workshop',
+    item_id : 'fm4_workshop_green_lp',
     item_name : WEBINAR_NAME,
     item_category : 'Online Workshop',
     price : DISCOUNTED_PRICE,
@@ -37,7 +35,16 @@ export const PRODUCT : Product = {
 
 }
 
+const getTransactionId = () => {
+  const existing = sessionStorage.getItem("transaction_id");
+  if (existing) return existing;
+  const newId = crypto.randomUUID();
+  sessionStorage.setItem("transaction_id", newId);
+  return newId;
+};
+
 export const ORDER : Order = {
+    transaction_id: getTransactionId(),
     value: DISCOUNTED_PRICE,
     currency: CURRENCY,
     items: [PRODUCT],
