@@ -72,48 +72,7 @@ if (!form.city.trim()) newErrors.city = "City is required";
 
       trackAddToCart(PRODUCT); 
 
-    // Capture all UTM parameters from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const utmParams = {
-      utm_source: urlParams.get("utm_source") || "",
-      utm_medium: urlParams.get("utm_medium") || "",
-      utm_campaign: urlParams.get("utm_campaign") || "",
-      utm_term: urlParams.get("utm_term") || "",
-      utm_content: urlParams.get("utm_content") || "",
-    };
-
-    // Determine primary source for tracking
-    const source =
-      utmParams.utm_source ||
-      urlParams.get("source") ||
-      document.referrer ||
-      "direct";
-
-    // Save to localStorage for ThankYou page (include all UTM params)
-    localStorage.setItem("lastRegistration", JSON.stringify({ 
-      ...form, 
-      source,
-      ...utmParams 
-    }));
-
-    // Fire-and-forget to backend (include UTM params)
-    fetch(`${BACKEND_URL}/api/pre-register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: form.fullName.trim(),
-        email: form.email,
-        phone: form.phone.replace(/\D/g, ''),
-        city: form.city,
-        age: form.age,
-        utm_source: utmParams.utm_source,
-        utm_medium: utmParams.utm_medium,
-        utm_campaign: utmParams.utm_campaign,
-        utm_term: utmParams.utm_term,
-        utm_content: utmParams.utm_content,
-      }),
-    }).catch(console.error);
-
+      
     // Track Facebook pixel - AddToCart for all pixel IDs (form CTA)
     if ((window as any).fbq) {
       PIXEL_IDS.forEach((pixelId) => {
@@ -124,14 +83,32 @@ if (!form.city.trim()) newErrors.city = "City is required";
       });
     }
 
-    // Redirect with prefilled params after short delay to let pixel fire
+        // Extract UTM parameters and webinar name from URL if they exist
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmParams: Record<string, string> = {};
+    for (const [key, value] of urlParams.entries()) {
+      if (key.startsWith("utm_") || key === "fbclid" || key === "gclid") {
+        utmParams[key] = value;
+      }
+    }
+
+    const webinarName =
+      urlParams.get("webinar_name") ||
+      "Fitness Master - FB - LP2";
+
+    const rawPhone = form.phone.replace(/\D/g, ""); // remove all non-digits
+    const phone10 = rawPhone.length > 10 ? rawPhone.slice(-10) : rawPhone;
+
+    // Redirect with prefilled params after short delay
     // pages.razorpay.com uses full_name and phone (not name/contact)
     const params = new URLSearchParams({
       full_name: form.fullName,
       email: form.email,
-      phone: form.phone.replace(/\D/g, ''),
+      phone: phone10,
       city: form.city,
       age: form.age,
+      webinar_name: webinarName,
+      ...utmParams,
     });
 
     setTimeout(() => {
@@ -230,12 +207,7 @@ if (!form.city.trim()) newErrors.city = "City is required";
               </div>
             </div>
 
-            {/* <button
-              type="submit"
-              className="w-full bg-cta hover:bg-cta-hover text-cta-foreground rounded-xl py-4 font-heading font-bold text-lg transition-all shadow-cta flex items-center justify-center gap-2"
-            >
-              Place Your Order — ₹99.00
-            </button> */}
+
 
             <CheckoutButton label="Place Your Order — " ctaLocation="CheckoutSection"/>
 
